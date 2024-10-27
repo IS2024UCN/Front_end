@@ -1,13 +1,20 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { OnInit } from '@angular/core';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'FrontedAngularIS';
+export class AppComponent implements OnInit {
+  title = 'web-app';
+
+  async ngOnInit(): Promise<void> {
+    if (typeof window !== 'undefined'){
+      const { initFlowbite } = await import('flowbite');
+      initFlowbite();
+    }
+  }
 }
