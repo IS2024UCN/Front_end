@@ -1,12 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-loginform',
+  selector: 'auth-loginform',
   standalone: true,
-  imports: [],
   templateUrl: './loginform.component.html',
-  styleUrl: './loginform.component.css'
+  styleUrls: ['./loginform.component.css']  // Cambia a "styleUrls"
 })
-export class LoginformComponent {
-
-}
+export class LoginformComponent {}
