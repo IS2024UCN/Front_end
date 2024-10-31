@@ -1,0 +1,43 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #dee416;
+    overflow: hidden;
+  }
+  
+  .form{
+    width: auto;
+    padding: 40px;
+    background-color: #859a45;
+    border-radius: 12px;
+  }
+  
+  hr{
+    background-color: #D90429;
+    height: 5px;
+  }
+  
+  .primarybutton{
+    background-color: #EF233C;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .primarybutton:hover{
+    background-color: #a2001b;
+  
+  }
+  
+  .secundarybutton{
+    border: 2px solid;
+    border-color: #EF233C;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .secundarybutton:hover{
+    background-color: #a2001b;
+    color: #ed1919;
+  }
