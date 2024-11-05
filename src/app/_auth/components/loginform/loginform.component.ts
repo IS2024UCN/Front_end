@@ -1,11 +1,14 @@
 import { Component, Inject } from '@angular/core';
-import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'auth-loginform',
   standalone: true,
+  imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './loginform.component.html',
   styleUrls: ['./loginform.component.css'],  // Cambia a "styleUrls"
   providers: [AuthServiceService]
@@ -21,7 +24,7 @@ export class LoginformComponent {
   private authService = Inject(AuthServiceService);
 
   constructor(private fb: FormBuilder, private router: Router ) {
-
+    this.formulario();
    }
 
    formulario(): void {
@@ -66,6 +69,10 @@ export class LoginformComponent {
       this.error = true;
       this.errorMessage.push('Error al iniciar sesión');
     }
+  }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
   }
 
 }
