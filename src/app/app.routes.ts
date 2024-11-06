@@ -1,21 +1,9 @@
 import { Routes } from '@angular/router';
+import { LoginformComponent } from './_auth/components/loginform/loginform.component';
+import { RegisterFormComponent } from './_auth/components/register-form/register-form.component';
 
 export const routes: Routes = [
-
-    {
-        path: 'login',
-        loadComponent: () => import('./_auth/pages/loginPage/login/login.component').then(m => m.LoginComponent),
-    },
-    //redireccion a la pagina de login en caso de que no se encuentre la ruta
-    {
-        path:'**',
-        redirectTo: 'login',
-    },
-    //redireccion a la pagina de login en caso de que la ruta este vacia
-    {
-        path:'',
-        redirectTo: 'login',
-        pathMatch: 'full'
-    },
-
+  { path: 'login', component: LoginformComponent },
+  { path: 'register', component: RegisterFormComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];

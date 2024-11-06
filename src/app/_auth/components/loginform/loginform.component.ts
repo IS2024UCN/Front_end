@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
 
 @Component({
-  selector: 'auth-loginform',
+  selector: 'app-login',
   standalone: true,
+  imports: [LoginformComponent],
   templateUrl: './loginform.component.html',
-  styleUrls: ['./loginform.component.css'],  // Cambia a "styleUrls"
-  providers: [AuthServiceService]
+  styleUrl: './loginform.component.css',
+  exportAs: 'LoginComponent'
 })
+
 export class LoginformComponent {
 
   form!: FormGroup;
@@ -66,6 +68,10 @@ export class LoginformComponent {
       this.error = true;
       this.errorMessage.push('Error al iniciar sesión');
     }
+  
+  }
+  register (): void {
+    this.router.navigate(['/register']);
   }
 
 }
