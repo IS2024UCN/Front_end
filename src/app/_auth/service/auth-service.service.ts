@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@angular/core';
 import { ResponseAPILogin, User } from '../interfaces/ResponseAPI';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
 
 
 @Injectable({
@@ -23,6 +24,18 @@ export class AuthServiceService {
       let e = error as HttpErrorResponse;
       this.errors.push(e.message || 'Error desconocido');
       return Promise.reject(this.errors);
+    }
+  }
+
+  async register(form: any):Promise<ResponseAPIRegister> {
+    try{
+      const data = await firstValueFrom(this.http.post<ResponseAPIRegister>(`${this.baseUrl}/register`, form, this.crearHeaders()));
+      return Promise.resolve(data);
+    } catch (error){
+      console.log('Error en el servicio del registro [Auth Service]: ', error);
+      let e = error as HttpErrorResponse;
+      this.errors.push(e.message || 'Error desconocido');
+      return Promise.reject(this.errors)
     }
   }
 
