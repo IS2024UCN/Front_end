@@ -3,41 +3,41 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #dee416;
+    background-color: #c19875;
     overflow: hidden;
   }
   
   .form{
     width: auto;
     padding: 40px;
-    background-color: #859a45;
+    background-color: #ffffff;
     border-radius: 12px;
   }
   
   hr{
-    background-color: #D90429;
-    height: 5px;
+    background-color: #000000;
+    height: 4px;
+    
   }
   
   .primarybutton{
-    background-color: #EF233C;
+    background-color: #c19875;
     cursor: pointer;
     transition: all 0.2s ease;
   }
   
   .primarybutton:hover{
-    background-color: #a2001b;
+    background-color: #000000;
   
   }
   
   .secundarybutton{
-    border: 2px solid;
-    border-color: #EF233C;
+    background-color: #c19875;
     cursor: pointer;
     transition: all 0.2s ease;
   }
   
   .secundarybutton:hover{
-    background-color: #a2001b;
-    color: #2f1818;
+    background-color: #000000;
+    color: #bf0b0b;
   }

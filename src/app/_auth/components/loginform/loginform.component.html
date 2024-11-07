@@ -1,12 +1,15 @@
 <form class="max-w-sm mx-auto justify-items-center flex flex-col h-full" [formGroup]="form">
   <div class="flex-grow flex flex-col justify-center">
     <img src="https://www.biblogtecarios.es/wp-content/uploads/2015/09/bibliotech.jpg" alt="bibliotech" width="300" height="200" style="display: block; margin: 0 auto;">
-    <h1 class="text-3xl font-extrabold text-gray-900 tracking-widest text-center mb-5">INICIAR SESIÓN</h1>
+    <h1 class="text-3xl font-extrabold tracking-widest text-center mb-5" style="color: #000000;">INICIAR SESIÓN</h1>
+
+
     <hr class="w-48 h-1 mx-auto border-0 rounded mb-5">
 
     <!-- Correo -->
     <div class="mb-5">
-      <label for="email" class="mb-2 text-sm font-medium text-gray-900">Correo</label>
+      <label for="email" class="mb-2 text-sm font-medium" style="color: #000000;">Correo</label>
+
       <input [class.is-invalid]="emailValidate" type="email" id="email" formControlName="email"
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
         placeholder="Ingrese su correo electrónico" name="email" />
@@ -20,7 +23,7 @@
 
     <!-- Contraseña -->
     <div class="mb-7">
-      <label for="password" class="mb-2 text-sm font-medium text-gray-900">Contraseña</label>
+      <label for="password" class="mb-2 text-sm font-medium" style="color: #000000;">Contraseña</label>
 
       <input [class.is-invalid]="passwordValidate" name="password" type="password" formControlName="password"
         id="password" placeholder="Ingrese su contraseña"
@@ -47,7 +50,7 @@
     </button>
 
     <button type="button" (click)="goToRegister()" 
-      class="secundarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-red-600">Registrarse</button>
+      class="secundarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" style="color: #ffffff;">Registrarse</button>
   </div>
 
 </form>

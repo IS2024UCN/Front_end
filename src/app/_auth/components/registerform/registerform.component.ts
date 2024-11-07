@@ -30,7 +30,8 @@ export class RegisterFormComponent {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      role: ['', [Validators.required]]
+      apellido: ['', [Validators.required]],
+      phone: ['', [Validators.required]]
     });
   }
 
@@ -46,8 +47,12 @@ export class RegisterFormComponent {
     return this.form.get('name')?.invalid && this.form.get('name')?.touched;
   }
 
-  get roleValidate() {
-    return this.form.get('role')?.invalid && this.form.get('role')?.touched;
+  get apellidoValidate() {
+    return this.form.get('apellido')?.invalid && this.form.get('apellido')?.touched;
+  }
+
+  get phoneValidate() {
+    return this.form.get('phone')?.invalid && this.form.get('telefono')?.touched;
   }
 
   async register() {

@@ -3,19 +3,19 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #EF233C;
+    background-color: #F2E3BC;
     overflow: hidden;
   }
   
   .form{
     width: auto;
-    padding: 40px;
+    padding: 65px;
     background-color: #fff;
-    border-radius: 12px;
+    border-radius: 20px;
   }
   
   hr{
-    background-color: #D90429;
+    background-color: #414535;
     height: 5px;
   }
   

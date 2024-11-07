@@ -9,35 +9,37 @@
   
   .form{
     width: auto;
-    padding: 40px;
+    padding: 80px;
     background-color: #fff;
-    border-radius: 12px;
+    border-radius: 80px;
   }
   
   hr{
-    background-color: #D90429;
+    background-color: #414535;
     height: 5px;
   }
   
   .primarybutton{
-    background-color: #EF233C;
+    border: 2px solid;
+    border-color: #414535;
     cursor: pointer;
     transition: all 0.2s ease;
   }
   
   .primarybutton:hover{
-    background-color: #a2001b;
+    background-color: #414535;
+    color: #fff;
   
   }
   
   .secundarybutton{
     border: 2px solid;
-    border-color: #EF233C;
+    border-color: #414535;
     cursor: pointer;
     transition: all 0.2s ease;
   }
   
   .secundarybutton:hover{
-    background-color: #a2001b;
+    background-color: #414535;
     color: #fff;
   }
