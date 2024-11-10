@@ -28,4 +28,16 @@ export class AppComponent implements OnInit {
   navigateToRegister(): void {
     this.Router.navigate(['/register']);
   }
+
+  navigateToCliente(): void {
+    this.Router.navigate(['/cliente']);
+  }
+
+  navigateToAdmin(): void {
+    this.Router.navigate(['/admin']);
+  }
+
+  navigateToTrabajador(): void {
+    this.Router.navigate(['/trabajador']);
+  }
 }
