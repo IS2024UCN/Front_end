@@ -1,3 +1,6 @@
+.bg-custom {
+    background-color: #414535;
+}
 .login {
     display: flex;
     justify-content: center;

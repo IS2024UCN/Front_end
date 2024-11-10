@@ -1,0 +1,81 @@
+<p>loginformtrabajador works!</p>
+<form class="max-w-sm mx-auto justify-items-center flex flex-col h-full" [formGroup]="form">
+    <div class="flex-grow flex flex-col justify-center">
+        <img src="https://www.biblogtecarios.es/wp-content/uploads/2015/09/bibliotech.jpg" alt="bibliotech" width="200" height="100" style="display: block; margin: 0 auto;">
+      <h1 class="text-3xl font-extrabold text-gray-900 tracking-widest text-center mb-5">REGISTRAR A UN CLIENTE</h1>
+      <hr class="w-48 h-1 mx-auto border-0 rounded mb-5">
+  
+      <!-- Nombre -->
+      <div class="mb-2">
+        <label for="name" class="mb-2 text-sm font-medium text-gray-900">Nombres</label>
+  
+        <input [class.is-invalid]="nameValidate" name="name" type="text" formControlName="name" id="name"
+          placeholder="Ingrese nombres del cliente"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+        <small *ngIf="nameValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese nombres válidos</small>
+      </div>
+
+      <!-- Apellido -->
+      <div class="mb-2">
+        <label for="apellido" class="mb-2 text-sm font-medium text-gray-900">Apellidos</label>
+  
+        <input [class.is-invalid]="apellidoValidate" name="apellido" type="text" formControlName="apellido" id="apellido"
+          placeholder="Ingrese apellidos del cliente"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+        <small *ngIf="apellidoValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese apellidos
+          válidos.</small>
+      </div>
+  
+      <!-- Correo -->
+      <div class="mb-2">
+        <label for="email" class="mb-2 text-sm font-medium text-gray-900">Correo</label>
+        <input [class.is-invalid]="emailValidate" type="email" id="email" formControlName="email"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
+          placeholder="Ingrese correo electrónico del cliente" name="email" />
+        <small *ngIf="emailValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese un correo
+          válido.</small>
+      </div>
+  
+      <!-- Contraseña -->
+      <div class="mb-2">
+        <label for="password" class="mb-2 text-sm font-medium text-gray-900">Rut</label>
+  
+        <input [class.is-invalid]="passwordValidate" name="password" type="password" formControlName="password"
+          id="password" placeholder="Ingrese rut del cliente"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+        <small *ngIf="passwordValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese un rut
+          válido.</small>
+      </div>
+
+
+      <!--telefono-->
+      <div class="mb-2">
+        <label for="phone" class="mb-2 text-sm font-medium text-gray-900">Teléfono</label>
+  
+        <input [class.is-invalid]="phoneValidate" name="phone" type="text" formControlName="phone"
+          id="phone" placeholder="Ingrese teléfono del cliente"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+          <small *ngIf="phoneValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese un teléfono
+            válido.</small>
+        </div>
+  
+      <div class="mb-2"></div>
+      <!-- Errores -->
+      <div *ngFor="let error of errorMessage" class="bg-red-500 rounded-lg mb-5 flex justify-center">
+        <a *ngIf="error" class="text-white text-sm font-medium m-5">
+  
+          {{ error }}
+  
+        </a>
+      </div>
+  
+      <!-- Botones -->
+      <button type="button" (click)="register()"
+        class="primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3">Registrar
+      </button>
+  
+      <a (click)="goBack()"
+        class="secundarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">Atrás</a>
+  
+    </div>
+  </form>

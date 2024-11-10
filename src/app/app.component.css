@@ -3,14 +3,14 @@
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #dee416;
+    background-color: #F2E3BC;
     overflow: hidden;
   }
   
   .form{
     width: auto;
     padding: 40px;
-    background-color: #859a45;
+    background-color: #F2E3BC;
     border-radius: 12px;
   }
   
