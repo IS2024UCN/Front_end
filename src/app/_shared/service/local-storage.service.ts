@@ -26,6 +26,7 @@ export class LocalStorageService {
     localStorage.setItem('Token', token);
   }
 
+
   getToken(): string | null {
     return localStorage.getItem('Token');
   }

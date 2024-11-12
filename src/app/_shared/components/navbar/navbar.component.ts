@@ -15,7 +15,7 @@ import { User } from '../../../_auth/interfaces/ResponseAPI';
 })
 export class NavbarComponent {
 
-  @Input() client!: User;
+  @Input() Client!: User;
 
   constructor(private router:Router, private AuthServiceService:AuthServiceService) {}
 

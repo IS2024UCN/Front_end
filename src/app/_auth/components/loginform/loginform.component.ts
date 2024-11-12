@@ -5,6 +5,7 @@ import { AuthServiceService } from '../../service/auth-service.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { LocalStorageService } from '../../../_shared/service/local-storage.service';
+import { response } from 'express';
 
 @Component({
   selector: 'auth-loginform',
@@ -53,14 +54,19 @@ export class LoginformComponent {
       return; 
     }
     this.loginAlert = true;
-
+    
     try {
+      console.log("errorAqui");
       const response = await this.authService.login(this.form.value);
       //TODO validar si el usuario existe en response
       if(response.data.user){
         this.localStorageService.setClientLogger(response.data.user);
         this.localStorageService.setToken(response.data.token);
         //TODO implementar que es admin y redirecciona al admin
+        if(response.data.user.role == 2){
+          this.router.navigate(['/administrador/dashboard']);
+          return;
+        }
         //TODO implemnetar que es worker y redirecciona al worker
         this.router.navigate(['/administrador/dashboard']);
       }else{
