@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import path from 'path';
 
 export const routes: Routes = [
 
@@ -9,6 +10,25 @@ export const routes: Routes = [
     {
         path: 'register',
         loadComponent: () => import('./_auth/pages/registerPage/register/register.component').then(m => m.RegisterComponent),
+    },
+    {
+        path: 'administrador',
+        loadComponent: () => import('./_admin/pages/general-page/general-page.component').then(m => m.GeneralPageComponent),
+        children: [
+            {
+                path: 'dashboard',
+                loadComponent: () => import('./_admin/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
+            },
+            {
+                path: '**',
+                redirectTo: 'dashboard',
+            },
+            {
+                path:'',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            }
+        ]
     },
     {
         path: 'admin',

@@ -3,7 +3,8 @@ import { ResponseAPILogin, User } from '../interfaces/ResponseAPI';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
-
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../_shared/service/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -37,12 +38,9 @@ export class AuthServiceService {
       this.errors.push(e.message || 'Error desconocido');
       return Promise.reject(this.errors)
     }
-  }
+  } 
 
-  setClientLogger(user: User ): void{
-    this.userLogged = user;
-    localStorage.setItem('User', JSON.stringify(user));
-  }
+
 
    logout(): void{
     this.userLogged = null;
