@@ -26,15 +26,16 @@ export class AuthServiceService {
     }
   }
 
-  setClientLogger(user: User ): void{
-    this.userLogged = user;
-    localStorage.setItem('User', JSON.stringify(user));
-  }
 
-   logout(): void{
+
+
+  
+
+  logout(): void{
     this.userLogged = null;
     localStorage.removeItem('User');
-   }
+    localStorage.removeItem('Token');
+  }
 
   crearHeaders(){
     return{

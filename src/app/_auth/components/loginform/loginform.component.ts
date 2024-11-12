@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
+import { LocalStorageService } from '../../../_shared/service/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,8 @@ import { AuthServiceService } from '../../service/auth-service.service';
   imports: [LoginformComponent],
   templateUrl: './loginform.component.html',
   styleUrl: './loginform.component.css',
-  exportAs: 'LoginComponent'
+  exportAs: 'LoginComponent',
+  providers: [AuthServiceService, LocalStorageService]
 })
 
 export class LoginformComponent {
@@ -21,6 +23,7 @@ export class LoginformComponent {
   errorMessage: string[] = [];
   
   private authService = Inject(AuthServiceService);
+  private localStorageService = Inject(LocalStorageService);
 
   constructor(private fb: FormBuilder, private router: Router ) {
 
@@ -54,8 +57,14 @@ export class LoginformComponent {
       const response = await this.authService.login(this.form.value);
       //TODO validar si el usuario existe en response
       if(response.data.user){
-        this.authService.setClientLogger(response.data.user);
-        this.router.navigate(['/']);
+        this.localStorageService.setClientLogger(response.data.user);
+        this.localStorageService.setToken(response.data.token);
+        //Implementar que sea un cliente rediriga a la pagina cliente
+        //Implementar que sea un trabajador rediriga a la pagina trabajador
+        //implementar que sea un admin rediriga a la pagina admin
+        if(response.data.user.role == 'admin'){
+          this.router.navigate(['/admin/dashboard']);
+        }
       }else{
         console.log('Error en ell complemento del login [Login Form]: ', response);
         this.error = true;
