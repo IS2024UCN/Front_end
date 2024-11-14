@@ -71,6 +71,10 @@ export class LoginformComponent {
           this.router.navigate(['/administrador/dashboard']);
           return;
         }
+        if(response.data.user.role_id == 3){
+          this.router.navigate(['/trabajador/dashboard']);
+          return;
+        }
         //TODO implemnetar que es worker y redirecciona al worker
       }else{
         console.log('Error en el complemento del login [Login Form]: ', response);
@@ -83,7 +87,14 @@ export class LoginformComponent {
     } catch (error) {
       console.log('Error en el complemento del login [Login Form]: ', error);
       this.error = true;
-      this.errorMessage.push('Error al iniciar sesión');
+      //ocultar el mensaje despues de 3 segundos
+      
+      this.errorMessage.push('Error al iniciar sesion');
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = [];
+      }, 3000);
+      
     }
   }
 

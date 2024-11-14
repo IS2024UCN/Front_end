@@ -18,6 +18,7 @@ export class RegisterFormComponent {
   loginAlert: boolean = false;
   error: boolean = false;
   errorMessage: string[] = [];
+  Message: string[] = [];
 
   private authService = inject(AuthServiceService);
 
@@ -71,6 +72,7 @@ export class RegisterFormComponent {
 
       if (response.error === false){
 
+        this.Message.push('Registro exitoso');
         this.Router.navigate(['/login']);
       } else{
         console.log('Error en el componente del register [Register Form]: ', response);
@@ -81,7 +83,11 @@ export class RegisterFormComponent {
     } catch (error) {
       console.log('Error en el componente del register [Register Form]: ', error);
       this.error = true;
-      this.errorMessage.push('Error de registro en el formulario');
+      this.errorMessage.push('Error al registro en el formulario');
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = [];
+      }, 3000);
     }
   }
 

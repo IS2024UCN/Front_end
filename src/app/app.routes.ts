@@ -50,11 +50,30 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'clientee',
-        loadComponent: () => import('./_auth/pages/clientePage/cliente/cliente.component').then(m => m.ClienteFComponent),
+        path: 'trabajador',
+        loadComponent: () => import('./_trabajador/pages/general-page/general-page.component').then(m => m.GeneralPageComponent),
+        children: [
+            {
+            path: 'dashboard',
+            loadComponent: () => import('./_trabajador/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
+            },
+            {
+                path: '**',
+                redirectTo: 'dashboard',
+            },
+            {
+                path:'',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            },
+            {
+                path: 'loginTrabajador',
+                loadComponent: () => import('./_auth/pages/loginFormTrabajadorPage/login-trabajador/login-trabajador.component').then(m => m.LoginTrabajadorComponent),
+            },
+        ]
     },
     {
-        path: 'trabajador',
+        path: 'trabajadorr',
         loadComponent: () => import('./_auth/pages/trabajadorPage/trabajador/trabajador.component').then(m => m.TrabajadorFComponent),
     },
     {

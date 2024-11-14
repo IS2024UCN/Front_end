@@ -17,12 +17,12 @@
 
       <!-- Apellido -->
       <div class="mb-2">
-        <label for="apellido" class="mb-2 text-sm font-medium text-gray-900">Apellidos</label>
+        <label for="last_name" class="mb-2 text-sm font-medium text-gray-900">Apellidos</label>
   
-        <input [class.is-invalid]="apellidoValidate" name="apellido" type="text" formControlName="apellido" id="apellido"
+        <input [class.is-invalid]="last_nameValidate" name="last_name" type="text" formControlName="last_name" id="last_name"
           placeholder="Ingrese apellidos del cliente"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
-        <small *ngIf="apellidoValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese apellidos
+        <small *ngIf="last_nameValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese apellidos
           válidos.</small>
       </div>
   
@@ -38,12 +38,12 @@
   
       <!-- Contraseña -->
       <div class="mb-2">
-        <label for="password" class="mb-2 text-sm font-medium text-gray-900">Rut</label>
+        <label for="rut" class="mb-2 text-sm font-medium text-gray-900">Rut</label>
   
-        <input [class.is-invalid]="passwordValidate" name="password" type="password" formControlName="password"
-          id="password" placeholder="Ingrese rut del cliente"
+        <input [class.is-invalid]="rutValidate" name="rut" type="rut" formControlName="rut"
+          id="rut" placeholder="Ingrese rut del cliente"
           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
-        <small *ngIf="passwordValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese un rut
+        <small *ngIf="rutValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese un rut
           válido.</small>
       </div>
 
@@ -68,6 +68,18 @@
   
         </a>
       </div>
+
+      
+      <div *ngFor="let error of message" class="bg-blue-600 rounded-lg mb-5 flex justify-center">
+        <a *ngIf="message" class="text-white text-sm font-medium m-5">
+  
+          {{ message }}
+  
+        </a>
+      </div>
+
+
+      
   
       <!-- Botones -->
       <button type="button" (click)="register()"
