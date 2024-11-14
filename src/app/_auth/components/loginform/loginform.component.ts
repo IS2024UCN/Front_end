@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Form, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
@@ -24,8 +24,8 @@ export class LoginformComponent {
   error: boolean = false;
   errorMessage: string[] = [];
   
-  private authService = Inject(AuthServiceService);
-  private localStorageService = Inject(LocalStorageService);
+  private authService = inject(AuthServiceService);
+  private localStorageService = inject(LocalStorageService);
 
   constructor(private fb: FormBuilder, private router: Router ) {
     this.formulario();
@@ -63,14 +63,17 @@ export class LoginformComponent {
         this.localStorageService.setClientLogger(response.data.user);
         this.localStorageService.setToken(response.data.token);
         //TODO implementar que es admin y redirecciona al admin
-        if(response.data.user.role == 2){
+        if(response.data.user.role_id == 1){
+          this.router.navigate(['/cliente/dashboard']);
+          return;
+        }
+        if(response.data.user.role_id == 2){
           this.router.navigate(['/administrador/dashboard']);
           return;
         }
         //TODO implemnetar que es worker y redirecciona al worker
-        this.router.navigate(['/administrador/dashboard']);
       }else{
-        console.log('Error en ell complemento del login [Login Form]: ', response);
+        console.log('Error en el complemento del login [Login Form]: ', response);
         this.error = true;
         this.errorMessage.push('Error de autenticación');
       }
@@ -78,6 +81,7 @@ export class LoginformComponent {
       //TODO si el usuario no existe
       
     } catch (error) {
+      console.log('Error en el complemento del login [Login Form]: ', error);
       this.error = true;
       this.errorMessage.push('Error al iniciar sesión');
     }

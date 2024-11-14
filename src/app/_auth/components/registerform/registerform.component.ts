@@ -27,10 +27,10 @@ export class RegisterFormComponent {
 
   formulario() {
     this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
       name: ['', [Validators.required]],
-      apellido: ['', [Validators.required]],
+      last_name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      rut: ['', [Validators.required]],
       phone: ['', [Validators.required]]
     });
   }
@@ -39,16 +39,16 @@ export class RegisterFormComponent {
     return this.form.get('email')?.invalid && this.form.get('email')?.touched;
   }
 
-  get passwordValidate() {
-    return this.form.get('password')?.invalid && this.form.get('password')?.touched;
+  get rutValidate() {
+    return this.form.get('rut')?.invalid && this.form.get('rut')?.touched;
   }
 
   get nameValidate() {
     return this.form.get('name')?.invalid && this.form.get('name')?.touched;
   }
 
-  get apellidoValidate() {
-    return this.form.get('apellido')?.invalid && this.form.get('apellido')?.touched;
+  get last_nameValidate() {
+    return this.form.get('last_name')?.invalid && this.form.get('last_name')?.touched;
   }
 
   get phoneValidate() {
@@ -56,16 +56,17 @@ export class RegisterFormComponent {
   }
 
   async register() {
+    
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach(control => {
         control.markAsTouched();
       });
       return;
     }
-
     this.loginAlert = true;
-
     try {
+
+      console.log('errorAqui');
       const response = await this.authService.register(this.form.value);
 
       if (response.error === false){
@@ -78,6 +79,7 @@ export class RegisterFormComponent {
       }
 
     } catch (error) {
+      console.log('Error en el componente del register [Register Form]: ', error);
       this.error = true;
       this.errorMessage.push('Error de registro en el formulario');
     }

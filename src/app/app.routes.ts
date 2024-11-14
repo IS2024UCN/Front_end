@@ -31,11 +31,26 @@ export const routes: Routes = [
         ]
     },
     {
-        path: 'admin',
-        loadComponent: () => import('./_auth/pages/adminPage/admin/admin.component').then(m => m.AdminFComponent),
+        path: 'cliente',
+        loadComponent: () => import('./_cliente/pages/general-page/general-page.component').then(m => m.GeneralPageComponent),
+        children: [
+            {
+                path: 'dashboard',
+                loadComponent: () => import('./_cliente/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
+            },
+            {
+                path: '**',
+                redirectTo: 'dashboard',
+            },
+            {
+                path:'',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            },
+        ]
     },
     {
-        path: 'cliente',
+        path: 'clientee',
         loadComponent: () => import('./_auth/pages/clientePage/cliente/cliente.component').then(m => m.ClienteFComponent),
     },
     {

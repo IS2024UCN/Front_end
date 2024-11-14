@@ -19,6 +19,7 @@ export class AuthServiceService {
   async login(form: any): Promise<ResponseAPILogin> {
     try {
       const data = await firstValueFrom(this.http.post<ResponseAPILogin>(`${this.baseUrl}/login`, form, this.crearHeaders()));
+      console.log('Data: ', data);
       return data; // No es necesario envolverlo en Promise.resolve, ya que 'data' ya es una promesa resuelta.
     } catch (error) {
       console.error('Error en el servicio del login [Auth Service]: ', error);
@@ -39,6 +40,7 @@ export class AuthServiceService {
   async register(form: any):Promise<ResponseAPIRegister> {
     try{
       const data = await firstValueFrom(this.http.post<ResponseAPIRegister>(`${this.baseUrl}/register`, form, this.crearHeaders()));
+      console.log('Data: ', data);
       return Promise.resolve(data);
     } catch (error){
       console.log('Error en el servicio del registro [Auth Service]: ', error);
@@ -47,8 +49,6 @@ export class AuthServiceService {
       return Promise.reject(this.errors)
     }
   } 
-
-
 
    logout(): void{
     this.userLogged = null;
