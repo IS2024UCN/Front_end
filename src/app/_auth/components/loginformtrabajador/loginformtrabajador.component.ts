@@ -62,6 +62,29 @@ export class LoginformtrabajadorComponent {
     return this.form.get('phone')?.invalid && this.form.get('telefono')?.touched;
   }
 
+  validateRut(rut: string): boolean {
+    if (!rut || rut.length < 8 || rut.length > 10) {
+      return false;
+    }
+
+    rut = rut.replace(/\./g, '').replace('-', '');
+    const body = rut.slice(0, -1);
+    const dv = rut.slice(-1).toUpperCase();
+
+    let sum = 0;
+    let multiplier = 2;
+
+    for (let i = body.length - 1; i >= 0; i--) {
+      sum += parseInt(body[i], 10) * multiplier;
+      multiplier = multiplier === 7 ? 2 : multiplier + 1;
+    }
+
+    const mod11 = 11 - (sum % 11);
+    const expectedDv = mod11 === 11 ? '0' : mod11 === 10 ? 'K' : mod11.toString();
+
+    return dv === expectedDv;
+  }
+
   
 
   async register() {
@@ -100,6 +123,53 @@ export class LoginformtrabajadorComponent {
       }
 
     } catch (error) {
+      //aaaaaaaaaaaaaaaa
+      
+    if (this.form.get('name')?.value.length < 3 || this.form.get('last_name')?.value.length < 3) {
+      this.error = true;
+      this.errorMessage.push('Los nombres o apellidos deben tener más de 2 caracteres');
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = [];
+      }, 3000);
+      return;
+    }
+
+    const rut = this.form.get('rut')?.value;
+    if (!this.validateRut(rut)) {
+      this.error = true;
+      this.errorMessage.push('RUT inválido');
+      setTimeout(() => {
+      this.error = false;
+      this.errorMessage = [];
+      }, 3000);
+      return;
+    }
+
+    const phone = this.form.get('phone')?.value;
+    if (phone.length !== 9) {
+      this.error = true;
+      this.errorMessage.push('El teléfono móvil ingresado no es válido');
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = [];
+      }, 3000);
+      return;
+    }
+
+    const email = this.form.get('email')?.value;
+    if (!email.includes('@') || email.indexOf('@') === 0 || email.indexOf('@') === email.length - 1) {
+      this.error = true;
+      this.errorMessage.push('Su correo electrónico no es válido');
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = [];
+      }, 3000);
+      return;
+    }
+
+    
+      //aaaaaaaaaaaaaaaa
       this.error = true;
       this.errorMessage.push('Error de registro en el formulario');
       setTimeout(() => {

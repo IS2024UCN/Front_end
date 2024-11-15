@@ -85,15 +85,21 @@ export class LoginformComponent {
       //TODO si el usuario no existe
       
     } catch (error) {
-      console.log('Error en el complemento del login [Login Form]: ', error);
+
       this.error = true;
       //ocultar el mensaje despues de 3 segundos
-      
-      this.errorMessage.push('Error al iniciar sesion');
+      this.errorMessage.push('Las credenciales de acceso son incorrectas o el usuario no está registrado en el sistema');
       setTimeout(() => {
         this.error = false;
         this.errorMessage = [];
       }, 3000);
+      
+      
+      console.log('Error en el complemento del login [Login Form]: ', error);
+      this.error = true;
+      //ocultar el mensaje despues de 3 segundos
+      
+    
       
     }
   }
