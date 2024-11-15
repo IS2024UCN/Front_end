@@ -148,6 +148,8 @@ export class RegisterFormComponent {
       }, 3000);
       return;
     }
+
+    
       //aaaaaaaaaaaaaaaa
       console.log('Error en el componente del register [Register Form]: ', error);
       this.error = true;
