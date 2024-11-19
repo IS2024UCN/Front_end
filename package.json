@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:FrontedAngularIS": "node dist/fronted-angular-is/server/server.mjs"
+    "serve:ssr:FrontedAngularIS": "node dist/fronted-angular-is/server/server.mjs",
+    "build:css": "postcss input.css -o output.css"
   },
   "private": true,
   "dependencies": {

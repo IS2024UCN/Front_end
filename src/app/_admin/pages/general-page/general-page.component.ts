@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from '../../../_auth/interfaces/ResponseAPI';
 import { LocalStorageService } from '../../../_shared/service/local-storage.service';
 import { Router, RouterOutlet } from '@angular/router';
@@ -11,18 +11,18 @@ import { NavbarComponent } from '../../../_shared/components/navbar/navbar.compo
   templateUrl: './general-page.component.html',
   styleUrl: './general-page.component.css'
 })
-export class GeneralPageComponent implements OnInit {
+export class GeneralPageComponent {
 
   user!: User;
 
-  constructor(private LocalStorageService:LocalStorageService, private router:Router) { }
+  constructor(private localStorageService:LocalStorageService, private router:Router) {}
 
   ngOnInit(): void {
-    const user = this.LocalStorageService.getClientLogger();
+    const user = this.localStorageService.getClientLogger();
 
     if(user){
       this.user = user;
-    } else {
+    }else{
       this.router.navigate(['/login']);
     }
   }

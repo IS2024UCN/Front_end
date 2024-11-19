@@ -10,22 +10,24 @@ export class LocalStorageService {
 
   constructor() { }
 
-  setClientLogger(user: User ): void{
+  setClientLogger(user: User): void{
     this.userLogged = user;
     localStorage.setItem('User', JSON.stringify(user));
   }
 
-  getClientLogger(): User | null{
+  getClientLogger(): User | null {
     if(!this.userLogged){
       this.userLogged = JSON.parse(localStorage.getItem('User') || '{}');
     }
-    return this.userLogged
+    return this.userLogged;
   }
 
-  setToken(token: string): void{
+  setToken(token: string): void {
     localStorage.setItem('Token', token);
   }
-  getToken(): string | null{
+
+
+  getToken(): string | null {
     return localStorage.getItem('Token');
   }
 }
