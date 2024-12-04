@@ -1,0 +1,54 @@
+.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #EF233C;
+    overflow: hidden;
+  }
+  
+  .form{
+    width: auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 12px;
+  }
+  
+  hr{
+    background-color: #414535;
+    height: 5px;
+  }
+  
+  .primarybutton{
+    border: 2px solid;
+    border-color: #414535;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .primarybutton:hover{
+    background-color: #414535;
+    color: #fff;
+  
+  }
+  
+  .secundarybutton{
+    border: 2px solid;
+    border-color: #414535;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .secundarybutton:hover{
+    background-color: #414535;
+    color: #fff;
+  }
+
+  .message {
+    color: red;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border: 1px solid red;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
