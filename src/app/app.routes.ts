@@ -20,6 +20,10 @@ export const routes: Routes = [
                 loadComponent: () => import('./_admin/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
             },
             {
+                path: 'worker-register',
+                loadComponent: () => import('./_auth/pages/workerRegisterPage/worker-register/worker-register.component').then(m => m.WorkerRegisterComponent),
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             },

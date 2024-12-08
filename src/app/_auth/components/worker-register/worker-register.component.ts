@@ -12,11 +12,11 @@ import { timer } from 'rxjs';
   selector: 'auth-worker-register',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
-  templateUrl: './loginformtrabajador.component.html',
-  styleUrl: './loginformtrabajador.component.css',
+  templateUrl: './worker-register.component.html',
+  styleUrl: './worker-register.component.css',
   providers: [AuthServiceService]
 })
-export class LoginformtrabajadorComponent {
+export class workerRegisterComponent {
 
   form!: FormGroup;
   loginAlert: boolean = false;
