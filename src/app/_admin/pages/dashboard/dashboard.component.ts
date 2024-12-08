@@ -14,8 +14,8 @@ export class DashboardComponent {
 
   constructor(private router: Router) {} // Inyecta el servicio Router
 
-  goWorkerRegister(): void {
+  goToWorkerRegister(): void {
     // Redirige a la ruta completa de worker-register bajo administrador
-    this.router.navigate(['/']);
+    this.router.navigate(['/administrador/worker-register']);
   }
 }
