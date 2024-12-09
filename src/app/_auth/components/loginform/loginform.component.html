@@ -8,19 +8,20 @@
 
 <div class="content-container">
   <div class="welcome-text">
-    <h1 class="text-8xl font-extrabold tracking-widest" style="color: #ffffff; font-family: 'Elsie', serif;">
+    <h1 class="text-9xl font-extrabold tracking-widest" style="color: #f2e3bc; font-family: 'Impact', serif;">
       BIENVENIDO<br><span class="center-text" style="display: block; line-height: 1;">A</span>BIBLIOTECH
     </h1>
   </div>
 
+  
   <div class="form-container">
     <form class="form-content" [formGroup]="form">
       <div class="flex-grow flex flex-col justify-center">
-        <h1 class="text-3xl font-extrabold tracking-widest text-center mb-5" style="color: #c19875; font-family: 'Elsie', serif;">INICIAR SESIÓN</h1>
+        <h1 class="text-3xl font-extrabold tracking-widest text-center mb-5" style="color: #c19875; font-family: 'Impact', sans-serif;">INICIAR SESIÓN</h1>
 
         <!-- Correo -->
         <div class="mb-5">
-          <label for="email" class="mb-2 text-sm font-medium" style="color: #c19875;">Correo</label>
+          <label for="email" class="mb-2 text-sm font-medium" style="color: #c19875; font-family: 'Impact', sans-serif;">Correo</label>
           <input [class.is-invalid]="emailValidate" type="email" id="email" formControlName="email"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
             placeholder="Ingrese su correo electrónico" name="email" />
@@ -29,7 +30,7 @@
 
         <!-- Contraseña -->
         <div class="mb-5">
-          <label for="password" class="mb-2 text-sm font-medium" style="color: #c19875;">Contraseña</label>
+          <label for="password" class="mb-2 text-sm font-medium" style="color: #c19875; font-family: 'Impact', sans-serif;">Contraseña</label>
           <input [class.is-invalid]="passwordValidate" type="password" id="password" formControlName="password"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"
             placeholder="Ingrese su contraseña" name="password" />
@@ -45,11 +46,11 @@
 
         <!-- Botones -->
         <button type="button" (click)="login()"
-          class="text-white primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3">Iniciar sesión
+          class="text-white primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3" style="font-family: 'Arial Black', Gadget, sans-serif;">Iniciar sesión
         </button>
 
         <button type="button" (click)="goToRegister()" 
-          class="secundarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" style="color: #ffffff;">Registrarse</button>
+          class="secundarybutton font-extrabold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center" style="color: #ffffff; font-family: 'Arial Black', Gadget, sans-serif;">Registrarse</button>
       </div>
     </form>
   </div>
