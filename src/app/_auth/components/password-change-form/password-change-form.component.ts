@@ -10,33 +10,55 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [HttpClientModule, CommonModule, ReactiveFormsModule],
   templateUrl: './password-change-form.component.html',
-  styleUrl: './password-change-form.component.css'
+  styleUrl: './password-change-form.component.css',
 })
 export class PasswordChangeFormComponent implements OnInit {
-  form: FormGroup = this.fb.group({});
+  passwordChangeForm: FormGroup = this.fb.group({});
 
-  constructor(private fb: FormBuilder, private Router: Router) {
-    
-
-  }
+  constructor(private fb: FormBuilder, private Router: Router) {}
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+    this.passwordChangeForm = this.fb.group({
+      currentPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required]],
     });
   }
 
+  get currentPassword() {
+    return this.passwordChangeForm.get('currentPassword');
+  }
+
+  get newPassword() {
+    return this.passwordChangeForm.get('newPassword');
+  }
+
+  get confirmPassword() {
+    return this.passwordChangeForm.get('confirmPassword');
+  }
+
+  get passwordMismatch(): boolean {
+    return (
+      this.passwordChangeForm.get('newPassword')?.value !==
+      this.passwordChangeForm.get('confirmPassword')?.value
+    );
+  }
+
   onSubmit(): void {
-    if (this.form.valid) {
-      console.log('Form Data:', this.form.value);
+    if (this.passwordChangeForm.valid && !this.passwordMismatch) {
+      const { currentPassword, newPassword } = this.passwordChangeForm.value;
+      console.log('Contraseña actual:', currentPassword);
+      console.log('Nueva contraseña:', newPassword);
+
+      // Aquí puedes implementar la lógica para cambiar la contraseña.
+      alert('Contraseña cambiada exitosamente.');
     } else {
-      console.log('Form is invalid');
+      alert('Por favor, corrige los errores en el formulario.');
     }
   }
 
-  goBack() {
+  goBack(): void {
+    // Redirigir a la página anterior
     this.Router.navigate(['/cliente']);
   }
-
 }
