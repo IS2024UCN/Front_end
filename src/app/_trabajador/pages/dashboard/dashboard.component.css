@@ -64,13 +64,18 @@ body {
     display: flex;
     gap: 15px;
 }
+.horizontal-buttons2 {
+    display: flex;
+    gap: 60px;
+    padding-left: 30px;
+}
   
 button {
     background-color: #5f8d8d;
     color: #ffffff;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
