@@ -1,12 +1,29 @@
-<div class="flex flex-col items-center justify-center p-5 bg-cover h-screen" style="background-image: url('assets/fondoAdmin.png');">
-  <div class="dashboard-container">
-  <header class="dashboard-header">
-    <h1>Bienvenido, [Nombre]</h1>
-    <img src="https://via.placeholder.com/150" alt="Imagen de perfil" class="profile-image" />
-  </header>
-  <section class="dashboard-actions">
-    <button class="action-button">Registrar Trabajador</button>
-    <button class="action-button">Ingresar Producto</button>
-    <button class="action-button">Ver Productos</button>
-  </section>
-</div>
+
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interfaz de Bienvenida</title>
+  <link rel="stylesheet" href="dashboard.component.css">
+</head>
+<body>
+  <div class="background-image" style="background-image: url('./assets/FondoCafe.png');"></div>
+
+  <div class="content-container">
+      <div class="container">
+        <h1>Bienvenido</h1>
+        <img class="w-32 h-32 rounded-full mx-auto" src="https://picsum.photos/200" alt="Profile picture">
+        <div class="profile-pic"></div>
+        <div class="buttons">
+          <div class="horizontal-buttons">
+            <button class="left" type="button" 
+              class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
+              REGISTRAR TRABAJADOR</button>
+            <button class="right" class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
+               INGRESAR PRODUCTO</button>
+          </div>
+          <button class="bottom" class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950"> VER PRODUCTOS</button>
+        </div>
+      </div>
+  </div>
+</body>

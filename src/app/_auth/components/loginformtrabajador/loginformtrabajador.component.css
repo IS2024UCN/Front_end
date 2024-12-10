@@ -1,54 +1,72 @@
-.login {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #EF233C;
-    overflow: hidden;
-  }
-  
-  .form{
-    width: auto;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 12px;
-  }
-  
-  hr{
-    background-color: #414535;
-    height: 5px;
-  }
-  
-  .primarybutton{
-    border: 2px solid;
-    border-color: #414535;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .primarybutton:hover{
-    background-color: #414535;
-    color: #fff;
-  
-  }
-  
-  .secundarybutton{
-    border: 2px solid;
-    border-color: #414535;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  
-  .secundarybutton:hover{
-    background-color: #414535;
-    color: #fff;
-  }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+}
 
-  .message {
-    color: red;
-    background-color: #ffe6e6;
-    padding: 10px;
-    border: 1px solid red;
-    border-radius: 5px;
-    margin-top: 10px;
-  }
+.background-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+/* Estilos para el contenedor principal */
+.content-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 20px;
+  z-index: 2;
+}
+
+/* Estilos para el contenedor del formulario */
+.form-container {
+  flex: 1;
+  background-color: #f2e3bc;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 100%;
+  z-index: 2; /* Asegúrate de que el formulario esté por encima del video */
+  border: 3px solid #000000; /* Agrega el borde con el color especificado */
+}
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.primarybutton {
+  background-color: #c19875;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.primarybutton:hover {
+  background-color: #000000;
+  z-index: 10;
+}
+
+.secundarybutton {
+  background-color: #c19875;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.secundarybutton:hover {
+  background-color: #000000;
+  z-index: 10;
+}

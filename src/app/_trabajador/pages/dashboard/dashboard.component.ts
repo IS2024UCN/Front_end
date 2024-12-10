@@ -16,6 +16,6 @@ export class DashboardComponent {
 
   goToRegisterTrabajador() {
     this.router.navigate(['/loginTrabajador']);
-
   }
+  
 }
