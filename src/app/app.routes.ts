@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import path from 'path';
+import { passwordChangeComponent } from './_auth/pages/passwordChangePage/password-change/password-change.component';
 
 export const routes: Routes = [
 
@@ -20,6 +21,10 @@ export const routes: Routes = [
                 loadComponent: () => import('./_admin/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
             },
             {
+                path: 'worker-register',
+                loadComponent: () => import('./_auth/pages/workerRegisterPage/worker-register/worker-register.component').then(m => m.WorkerRegisterComponent),
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             },
@@ -37,6 +42,10 @@ export const routes: Routes = [
             {
                 path: 'dashboard',
                 loadComponent: () => import('./_cliente/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
+            },
+            {
+                path: 'password-change',
+                loadComponent: () => import('./_auth/pages/passwordChangePage/password-change/password-change.component').then(m => m.passwordChangeComponent),
             },
             {
                 path: '**',

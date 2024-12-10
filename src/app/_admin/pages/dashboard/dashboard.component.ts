@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router'; // Importa el servicio Router
 
 @Component({
   selector: 'app-dashboard',
@@ -10,4 +11,11 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
   placeholders = Array(9).fill(null);
+
+  constructor(private router: Router) {} // Inyecta el servicio Router
+
+  goToWorkerRegister(): void {
+    // Redirige a la ruta completa de worker-register bajo administrador
+    this.router.navigate(['/administrador/worker-register']);
+  }
 }
