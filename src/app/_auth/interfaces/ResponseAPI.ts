@@ -1,7 +1,5 @@
 // src/app/_auth/interfaces/ResponseAPI.ts
 
-import e from "express";
-
 export interface ResponseAPILogin {
   message: string;
   data: Data;
@@ -18,7 +16,6 @@ export interface User {
   name: string;
   email: string;
   role_id: number;
-  password: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -28,8 +25,19 @@ export interface ResponseAPIRegister {
   data: User[];
   error: boolean;
 }
-export interface ResponseAPIupdatePassword {
+
+export interface ResponseAPIWorkerRegister {
   message: string;
-  data: Data;
-  error: boolean;
+  data: User[];
+  error: boolean; 
 }
+
+
+// src/app/_auth/interfaces/ResponseAPI.ts
+
+export interface ResponseAPIChangePassword {
+  message: string;
+  error: boolean;
+  details?: string;  
+}
+

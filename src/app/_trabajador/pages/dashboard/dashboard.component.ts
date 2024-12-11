@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router} from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
@@ -18,4 +18,7 @@ export class DashboardComponent {
     this.router.navigate(['/loginTrabajador']);
   }
   
+  goToProductRegister() {
+    this.router.navigate(['/trabajador/productRegister']);
+  }
 }
