@@ -4,6 +4,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { firstValueFrom } from 'rxjs';
 import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from '../../_shared/service/local-storage.service';
 
 @Injectable({
@@ -49,6 +50,33 @@ export class AuthServiceService {
       return Promise.reject(this.errors)
     }
   } 
+
+  async updatePassword(currentPassword: string, newPassword: string): Promise<any> {
+    try {
+      const data = await firstValueFrom(
+        this.http.post<any>(`${this.baseUrl}/password-change`, { current_password: currentPassword, new_password: newPassword }, this.crearHeaders())
+      );
+      console.log('Contraseña cambiada correctamente: ', data);
+      return data;
+    } catch (error) {
+      console.error('Error en el servicio de cambio de contraseña [Auth Service]: ', error);
+  
+      // Verifica si el error es un HttpErrorResponse
+      if (error instanceof HttpErrorResponse) {
+        this.errors.push(error.message || 'Error desconocido');
+  
+        // Si el cuerpo del error contiene detalles adicionales, puedes agregarlos
+        if (error.error && error.error.message) {
+          this.errors.push(error.error.message);
+        }
+      } else {
+        this.errors.push('Error desconocido');
+      }
+  
+      return Promise.reject(this.errors); // Devuelve el arreglo de errores
+    }
+  }
+  
 
    logout(): void{
     this.userLogged = null;

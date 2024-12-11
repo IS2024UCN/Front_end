@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthServiceService } from '../../service/auth-service.service';
 
 @Component({
   selector: 'auth-password-change-form',
@@ -15,12 +16,12 @@ import { Router } from '@angular/router';
 export class PasswordChangeFormComponent implements OnInit {
   passwordChangeForm: FormGroup = this.fb.group({});
 
-  constructor(private fb: FormBuilder, private Router: Router) {}
+  constructor(private fb: FormBuilder, private Router: Router, private authService: AuthServiceService) {}
 
   ngOnInit(): void {
     this.passwordChangeForm = this.fb.group({
       currentPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
     });
   }
@@ -44,18 +45,26 @@ export class PasswordChangeFormComponent implements OnInit {
     );
   }
 
-  onSubmit(): void {
+  async onSubmit(): Promise<void> {
     if (this.passwordChangeForm.valid && !this.passwordMismatch) {
       const { currentPassword, newPassword } = this.passwordChangeForm.value;
-      console.log('Contraseña actual:', currentPassword);
-      console.log('Nueva contraseña:', newPassword);
 
-      // Aquí puedes implementar la lógica para cambiar la contraseña.
-      alert('Contraseña cambiada exitosamente.');
+      try {
+        // Llamamos al servicio para cambiar la contraseña
+        const response = await this.authService.updatePassword(currentPassword, newPassword);
+        alert('Contraseña cambiada exitosamente.');
+        // Redirigir si es necesario
+        this.Router.navigate(['/cliente']);
+      } catch (error) {
+        // Si ocurre un error, mostrarlo al usuario
+        const errorMessage = Array.isArray(error) ? error.join(', ') : 'Unknown error';
+        alert('Error al cambiar la contraseña: ' + errorMessage);
+      }
     } else {
       alert('Por favor, corrige los errores en el formulario.');
     }
   }
+  
 
   goBack(): void {
     // Redirigir a la página anterior
