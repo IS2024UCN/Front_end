@@ -50,16 +50,36 @@ export class AuthServiceService {
     }
   } 
 
-   logout(): void{
+  logout(): void{
     this.userLogged = null;
     localStorage.removeItem('User');
-   }
+  }
 
   crearHeaders(){
     return{
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
+    }
+  }
+  async changePassword(passwordChangeForm: any): Promise<ResponseAPILogin> {
+    try {
+      const data = await firstValueFrom(this.http.post<ResponseAPILogin>(`${this.baseUrl}/updatePassword`, passwordChangeForm, this.crearHeaders()));
+      console.log('Data: ', data);
+      return data; // No es necesario envolverlo en Promise.resolve, ya que 'data' ya es una promesa resuelta.
+    } catch (error) {
+      console.error('Error en el servicio del cambio de contraseña [Auth Service]: ', error);
+      // Verifica si el error es un HttpErrorResponse
+      if (error instanceof HttpErrorResponse) {
+        this.errors.push(error.message || 'Error desconocido');
+        // Si el cuerpo del error contiene detalles adicionales, puedes agregarlos
+        if (error.error && error.error.message) {
+          this.errors.push(error.error.message);
+        }
+      } else {
+        this.errors.push('Error desconocido');
+      }
+      return Promise.reject(this.errors); // Devuelve el arreglo de errores
     }
   }
 }
