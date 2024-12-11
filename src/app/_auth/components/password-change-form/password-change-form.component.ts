@@ -26,15 +26,15 @@ export class PasswordChangeFormComponent implements OnInit {
   }
 
   get currentPassword() {
-    return this.passwordChangeForm.get('currentPassword');
+    return this.passwordChangeForm.get('currentPassword')?.invalid && this.passwordChangeForm.get('currentPassword')?.touched;
   }
 
   get newPassword() {
-    return this.passwordChangeForm.get('newPassword');
+    return this.passwordChangeForm.get('newPassword')?.invalid && this.passwordChangeForm.get('newPassword')?.touched;
   }
 
   get confirmPassword() {
-    return this.passwordChangeForm.get('confirmPassword');
+    return this.passwordChangeForm.get('confirmPassword')?.invalid && this.passwordChangeForm.get('confirmPassword')?.touched;
   }
 
   get passwordMismatch(): boolean {
