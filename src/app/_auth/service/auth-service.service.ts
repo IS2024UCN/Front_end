@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ResponseAPILogin, User } from '../interfaces/ResponseAPI';
+import { ResponseAPILogin, ResponseAPIupdatePassword, User } from '../interfaces/ResponseAPI';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
@@ -62,24 +62,16 @@ export class AuthServiceService {
       })
     }
   }
-  async changePassword(passwordChangeForm: any): Promise<ResponseAPILogin> {
+  async changePassword(passwordChangeForm: any): Promise<ResponseAPIupdatePassword> {
     try {
-      const data = await firstValueFrom(this.http.post<ResponseAPILogin>(`${this.baseUrl}/updatePassword`, passwordChangeForm, this.crearHeaders()));
+      const data = await firstValueFrom(this.http.post<ResponseAPIupdatePassword>(`${this.baseUrl}/update-Password`, passwordChangeForm, this.crearHeaders()));
       console.log('Data: ', data);
-      return data; // No es necesario envolverlo en Promise.resolve, ya que 'data' ya es una promesa resuelta.
+      return Promise.resolve(data);
     } catch (error) {
       console.error('Error en el servicio del cambio de contraseña [Auth Service]: ', error);
-      // Verifica si el error es un HttpErrorResponse
-      if (error instanceof HttpErrorResponse) {
-        this.errors.push(error.message || 'Error desconocido');
-        // Si el cuerpo del error contiene detalles adicionales, puedes agregarlos
-        if (error.error && error.error.message) {
-          this.errors.push(error.error.message);
-        }
-      } else {
-        this.errors.push('Error desconocido');
-      }
-      return Promise.reject(this.errors); // Devuelve el arreglo de errores
+      let e = error as HttpErrorResponse;
+      this.errors.push(e.message || 'Error desconocido');
+      return Promise.reject(this.errors)
     }
   }
 }

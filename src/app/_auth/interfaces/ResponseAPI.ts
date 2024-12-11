@@ -1,5 +1,7 @@
 // src/app/_auth/interfaces/ResponseAPI.ts
 
+import e from "express";
+
 export interface ResponseAPILogin {
   message: string;
   data: Data;
@@ -24,5 +26,10 @@ export interface User {
 export interface ResponseAPIRegister {
   message: string;
   data: User[];
+  error: boolean;
+}
+export interface ResponseAPIupdatePassword {
+  message: string;
+  data: Data;
   error: boolean;
 }

@@ -28,8 +28,7 @@ export class PasswordChangeFormComponent implements OnInit {
   ngOnInit(): void {
     this.passwordChangeForm = this.fb.group({
       currentPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required]],
+      newPassword: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -47,12 +46,9 @@ export class PasswordChangeFormComponent implements OnInit {
 
   get passwordMismatch(): boolean {
     return (
-      this.passwordChangeForm.get('newPassword')?.value !==
-      this.passwordChangeForm.get('confirmPassword')?.value
+      this.passwordChangeForm.get('newPassword')?.value !== this.passwordChangeForm.get('confirmPassword')?.value
     );
   }
-
-  
 
   async ChangePassword() {
 
@@ -65,10 +61,12 @@ export class PasswordChangeFormComponent implements OnInit {
     this.loginAlert = true;
     try {
       const response = await this.authService.changePassword(this.passwordChangeForm.value);
-      if (response.data.user.password) {
-        if (response.data.user.password == this.passwordChangeForm.value.currentPassword) {
-          this.localStorageService.setPasswd(this.passwordChangeForm.value.newPassword);
-          alert('Contraseña cambiada exitosamente.');
+      if (response.data.user) {
+        if(this.passwordChangeForm.value.newPassword == this.passwordChangeForm.value.confirmPassword){
+          if (response.data.user.password == this.passwordChangeForm.value.currentPassword) {
+            this.localStorageService.setPasswd(this.passwordChangeForm.value.newPassword);
+            alert('Contraseña cambiada exitosamente.');
+          }
         }
       } else {
         alert('Error al cambiar la contraseña.');
@@ -82,8 +80,6 @@ export class PasswordChangeFormComponent implements OnInit {
       }, 3000);
       console.log('Error en el complemento del login [Login Form]: ', error);
     }
-
-    // Aquí puedes implementar la lógica para cambiar la contraseña.
     alert('Contraseña cambiada exitosamente.');
   }
 

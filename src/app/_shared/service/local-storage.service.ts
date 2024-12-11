@@ -35,7 +35,7 @@ export class LocalStorageService {
   }
 
   setPasswd(passwd: string): void {
-    localStorage.setItem('password', passwd);
+    localStorage.setItem('password', JSON.stringify(passwd));
   }
 
   getToken(): string | null {
