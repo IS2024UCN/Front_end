@@ -41,4 +41,8 @@ export class LocalStorageService {
   getToken(): string | null {
     return localStorage.getItem('Token');
   }
+
+  getRole(): number | null {
+    return this.getClientLogger()?.role_id ?? null;
+  }
 }

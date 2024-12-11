@@ -83,8 +83,16 @@ export class PasswordChangeFormComponent implements OnInit {
     alert('Contraseña cambiada exitosamente.');
   }
 
-  goBack(): void {
-    // Redirigir a la página anterior
-    this.Router.navigate(['/cliente']);
+  async goBack() {
+    const rol_id = this.localStorageService.getRole();
+    if(rol_id == 1){
+    this.Router.navigate(['/cliente/dashboard']);
+    }
+    if(rol_id == 2){
+      this.Router.navigate(['/administrador/dashboard']);
+    }
+    if(rol_id == 3){
+      this.Router.navigate(['/trabajador/dashboard']);
+    }
   }
 }

@@ -1,0 +1,215 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+:host {
+    position: fixed;
+    left: 0.001rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 2;
+    display: block;
+    min-height: 100vh;
+    background-color: #96bbbb;
+    width: 100%;
+    height: 100%;
+}
+    
+/* Main Content */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    background-color: #96bbbb;
+    padding: 2.5rem;
+}
+.content-container {
+    background-color: white;
+    border-radius: 0.75rem;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+.menu-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.menu-dropdown {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 0.5rem;
+    z-index: 1000;
+}
+.menu-item {
+    display: block;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.menuOpen {
+    display: block;
+}
+  
+.menu-item:hover {
+    background-color: #f0f0f0;
+}
+.search-input-container {
+    position: relative;
+    flex: 1;
+}
+.search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    padding-right: 2.5rem;
+    background-color: #f3f4f6;
+    border: none;
+    border-radius: 0.5rem;
+    outline: none;
+    font-size: 1rem;
+}
+.search-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+}
+
+/* Book Grid */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    z-index: 5;
+}
+.book-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.book-image {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.book-title {
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 0;
+}
+.book-price {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin: 0;
+}
+.book-update {
+    font-size: 0.75rem;
+    color: #9ca3af;
+    margin: 0;
+}
+/* Placeholder Styles */
+.placeholder .book-image-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background-color: #e5e7eb;
+    border-radius: 0.5rem;
+}
+.placeholder .text-placeholder {
+    height: 1rem;
+    background-color: #e5e7eb;
+    border-radius: 0.25rem;
+}
+.placeholder .text-placeholder-small {
+    height: 0.75rem;
+    background-color: #e5e7eb;
+    border-radius: 0.25rem;
+    width: 66%;
+}
+
+/* Side Navigation */
+.side-nav {
+    position: fixed;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    z-index: 40;
+}
+.side-nav-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #4b5563;
+}
+.side-nav-button.active {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.side-nav-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: #e5e7eb;
+    border-radius: 9999px;
+}
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+    opacity: 1;
+    }
+    50% {
+    opacity: 0.5;
+    }
+}
+.placeholder > * {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .side-nav {
+    display: none;
+    }
+   
+    .book-grid {
+    grid-template-columns: repeat(2, 1fr);
+    }
+   
+    .header-center {
+    display: none;
+    }
+}
