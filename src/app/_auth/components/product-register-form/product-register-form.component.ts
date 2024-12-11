@@ -90,6 +90,17 @@ export class ProductRegisterFormComponent {
     return false;
   }
 
+  //Validar que el ISBN tenga minimo 10 digitos
+  validateISBN(ISBN: string): boolean {
+    if (ISBN.length < 10) {
+      return false;
+    }
+    return true;
+  }
+
+  
+
+
 
 
 

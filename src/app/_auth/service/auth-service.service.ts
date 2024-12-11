@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ResponseAPIChangePassword, ResponseAPILogin, User } from '../interfaces/ResponseAPI';
+import { ResponseAPIChangePassword, ResponseAPILogin, ResponseAPIWorkerRegister, User } from '../interfaces/ResponseAPI';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
@@ -49,6 +49,23 @@ export class AuthServiceService {
       return Promise.reject(this.errors)
     }
   } 
+
+  async workerRegister(form: any): Promise<ResponseAPIWorkerRegister> {
+    try {
+      // Asegúrate de que la URL sea la correcta
+      const data = await firstValueFrom(this.http.post<ResponseAPIRegister>(`${this.baseUrl}/registerWorker`, form, this.crearHeaders()));
+      console.log('Data: ', data);
+      return Promise.resolve(data);
+    } catch (error) {
+      console.log('Error en el servicio del registro [Auth Service]: ', error);
+      let e = error as HttpErrorResponse;
+      this.errors.push(e.message || 'Error desconocido');
+      return Promise.reject(this.errors);
+    }
+  }
+  
+
+
 
   async changePassword(form: any): Promise<ResponseAPIChangePassword> {
     try {

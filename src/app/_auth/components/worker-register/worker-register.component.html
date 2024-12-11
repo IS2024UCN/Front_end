@@ -12,7 +12,6 @@
       <form class="max-w-sm mx-auto justify-items-center flex flex-col h-full" [formGroup]="form">
        <div class="flex-grow flex flex-col justify-center">
          <h1 class="text-3xl font-extrabold text-gray-900 tracking-widest text-center mb-5" style="color: #c19875; font-family: 'Impact', sans-serif;">REGISTRAR A TRABAJADOR</h1>
- 
          <hr class="w-48 h-1 mx-auto border-0 rounded mb-5">
    
          <!-- Nombre -->
@@ -45,19 +44,18 @@
              válido.</small>
          </div>
    
-         <!-- rut -->
+         <!-- Rut -->
          <div class="mb-2">
            <label for="rut" class="mb-2 text-sm font-medium text-gray-900" style="color: #c19875; font-family: 'Impact', serif;">Rut</label>
      
-           <input [class.is-invalid]="rutValidate" name="rut" type="rut" formControlName="rut"
+           <input [class.is-invalid]="rutValidate" name="rut" type="text" formControlName="rut"
              id="rut" placeholder="Ingrese su rut"
              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
            <small *ngIf="rutValidate" style="font-size:x-small;" class="text-red-500 font-medium">Ingrese un rut
              válido.</small>
          </div>
  
- 
-        <!--telefono-->
+         <!-- Teléfono -->
          <div class="mb-2">
           <label for="phone" class="mb-2 text-sm font-medium text-gray-900" style="color: #c19875; font-family: 'Impact', serif;">Teléfono</label>
    
@@ -68,28 +66,20 @@
              válido.</small>
          </div>
    
-         <div class="mb-2"></div>
-         <!-- Errores -->
+         <!-- Mensajes de error -->
          <div *ngFor="let error of errorMessage" class="bg-red-500 rounded-lg mb-5 flex justify-center">
-           <a *ngIf="error" class="text-white text-sm font-medium m-5">
-   
-            {{ error }}
-   
+           <a class="text-white text-sm font-medium m-5">
+             {{ error }}
            </a>
          </div>
- 
-       
-         <div *ngFor="let error of message" class="bg-blue-600 rounded-lg mb-5 flex justify-center">
-           <a *ngIf="message" class="text-white text-sm font-medium m-5">
-   
-            {{ message }}
-   
+
+         <!-- Mensajes de éxito -->
+         <div *ngIf="good" class="bg-blue-600 rounded-lg mb-5 flex justify-center">
+           <a class="text-white text-sm font-medium m-5">
+             {{ message[0] }}
            </a>
          </div>
- 
- 
-       
-   
+
          <!-- Botones -->
          <button type="button" (click)="register()"
            class="primarybutton font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center mb-3 text-center text-white" style="font-family: 'Arial Black', sans-serif;">Registrar

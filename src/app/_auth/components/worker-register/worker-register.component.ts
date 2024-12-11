@@ -5,8 +5,6 @@ import { AuthServiceService } from '../../service/auth-service.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { time } from 'console';
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'auth-worker-register',
@@ -24,7 +22,6 @@ export class workerRegisterComponent {
   errorMessage: string[] = [];
   good: boolean = false;
   message: string[] = [];
-
 
   private authService = inject(AuthServiceService);
 
@@ -59,7 +56,7 @@ export class workerRegisterComponent {
   }
 
   get phoneValidate() {
-    return this.form.get('phone')?.invalid && this.form.get('telefono')?.touched;
+    return this.form.get('phone')?.invalid && this.form.get('phone')?.touched;
   }
 
   validateRut(rut: string): boolean {
@@ -85,8 +82,6 @@ export class workerRegisterComponent {
     return dv === expectedDv;
   }
 
-  
-
   async register() {
     if (this.form.invalid) {
       Object.values(this.form.controls).forEach(control => {
@@ -98,78 +93,26 @@ export class workerRegisterComponent {
     this.loginAlert = true;
 
     try {
-      const response = await this.authService.register(this.form.value);
+      const response = await this.authService.workerRegister(this.form.value);
 
-      if (response.error === false){
+      if (response.error === false) {
+        this.good = true;
+        this.message.push('Trabajador registrado correctamente');
 
-        this.Router.navigate(['/loginTrabajador']);
-
-
-        this.error = true;
-
-        
-    
-        this.message.push('Registro exitoso');
         setTimeout(() => {
           this.good = false;
           this.message = [];
-      }, 3000);
-        
+          this.Router.navigate(['/loginTrabajador']);
+        }, 3000);
 
-      } else{
-        console.log('Error en el componente del register [Register Form]: ', response);
+      } else {
+        console.error('Error en el componente del register [Register Form]: ', response);
         this.error = true;
         this.errorMessage.push('Error de registro');
       }
 
     } catch (error) {
-      //aaaaaaaaaaaaaaaa
-      
-    if (this.form.get('name')?.value.length < 3 || this.form.get('last_name')?.value.length < 3) {
-      this.error = true;
-      this.errorMessage.push('Los nombres o apellidos deben tener más de 2 caracteres');
-      setTimeout(() => {
-        this.error = false;
-        this.errorMessage = [];
-      }, 3000);
-      return;
-    }
-
-    const rut = this.form.get('rut')?.value;
-    if (!this.validateRut(rut)) {
-      this.error = true;
-      this.errorMessage.push('RUT inválido');
-      setTimeout(() => {
-      this.error = false;
-      this.errorMessage = [];
-      }, 3000);
-      return;
-    }
-
-    const phone = this.form.get('phone')?.value;
-    if (phone.length !== 9) {
-      this.error = true;
-      this.errorMessage.push('El teléfono móvil ingresado no es válido');
-      setTimeout(() => {
-        this.error = false;
-        this.errorMessage = [];
-      }, 3000);
-      return;
-    }
-
-    const email = this.form.get('email')?.value;
-    if (!email.includes('@') || email.indexOf('@') === 0 || email.indexOf('@') === email.length - 1) {
-      this.error = true;
-      this.errorMessage.push('Su correo electrónico no es válido');
-      setTimeout(() => {
-        this.error = false;
-        this.errorMessage = [];
-      }, 3000);
-      return;
-    }
-
-    
-      //aaaaaaaaaaaaaaaa
+      console.error('Error inesperado:', error);
       this.error = true;
       this.errorMessage.push('Error de registro en el formulario');
       setTimeout(() => {
@@ -182,6 +125,4 @@ export class workerRegisterComponent {
   goBack() {
     this.Router.navigate(['/administrador']);
   }
-
-
 }

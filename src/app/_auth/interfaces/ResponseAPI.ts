@@ -26,6 +26,13 @@ export interface ResponseAPIRegister {
   error: boolean;
 }
 
+export interface ResponseAPIWorkerRegister {
+  message: string;
+  data: User[];
+  error: boolean; 
+}
+
+
 // src/app/_auth/interfaces/ResponseAPI.ts
 
 export interface ResponseAPIChangePassword {
