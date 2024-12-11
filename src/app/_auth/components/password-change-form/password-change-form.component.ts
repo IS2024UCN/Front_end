@@ -1,73 +1,69 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
 
 @Component({
   selector: 'auth-password-change-form',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './password-change-form.component.html',
-  styleUrl: './password-change-form.component.css',
+  styleUrls: ['./password-change-form.component.css'],
+  providers: [AuthServiceService],
 })
 export class PasswordChangeFormComponent implements OnInit {
-  passwordChangeForm: FormGroup = this.fb.group({});
+  passwordChangeForm!: FormGroup;
+  errorMessage: string[] = [];
+  successMessage: string = '';
 
-  constructor(private fb: FormBuilder, private Router: Router, private authService: AuthServiceService) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthServiceService,
+    private router: Router 
+  ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.passwordChangeForm = this.fb.group({
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', [Validators.required]],
-    });
+    }, { validators: this.passwordMatchValidator }); // Agregar validador global
   }
 
-  get currentPassword() {
-    return this.passwordChangeForm.get('currentPassword')?.invalid && this.passwordChangeForm.get('currentPassword')?.touched;
+  // Validación global para que newPassword y confirmPassword coincidan
+  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const newPassword = group.get('newPassword')?.value;
+    const confirmPassword = group.get('confirmPassword')?.value;
+    return newPassword && confirmPassword && newPassword !== confirmPassword
+      ? { passwordMismatch: true }
+      : null;
   }
 
-  get newPassword() {
-    return this.passwordChangeForm.get('newPassword')?.invalid && this.passwordChangeForm.get('newPassword')?.touched;
-  }
+  async onSubmit() {
+    if (this.passwordChangeForm.invalid) {
+      Object.values(this.passwordChangeForm.controls).forEach(control => {
+        control.markAsTouched();
+      });
+      return;
+    }
 
-  get confirmPassword() {
-    return this.passwordChangeForm.get('confirmPassword')?.invalid && this.passwordChangeForm.get('confirmPassword')?.touched;
-  }
-
-  get passwordMismatch(): boolean {
-    return (
-      this.passwordChangeForm.get('newPassword')?.value !==
-      this.passwordChangeForm.get('confirmPassword')?.value
-    );
-  }
-
-  async onSubmit(): Promise<void> {
-    if (this.passwordChangeForm.valid && !this.passwordMismatch) {
+    try {
       const { currentPassword, newPassword } = this.passwordChangeForm.value;
+      const response = await this.authService.changePassword({ currentPassword, newPassword });
 
-      try {
-        // Llamamos al servicio para cambiar la contraseña
-        const response = await this.authService.updatePassword(currentPassword, newPassword);
-        alert('Contraseña cambiada exitosamente.');
-        // Redirigir si es necesario
-        this.Router.navigate(['/cliente']);
-      } catch (error) {
-        // Si ocurre un error, mostrarlo al usuario
-        const errorMessage = Array.isArray(error) ? error.join(', ') : 'Unknown error';
-        alert('Error al cambiar la contraseña: ' + errorMessage);
+      if (!response.error) {
+        this.successMessage = 'Contraseña cambiada exitosamente';
+      } else {
+        this.errorMessage.push(response.details || 'Error al cambiar la contraseña');
       }
-    } else {
-      alert('Por favor, corrige los errores en el formulario.');
+    } catch (error) {
+      console.error('Error al cambiar la contraseña', error);
+      this.errorMessage.push('Hubo un error al cambiar la contraseña');
     }
   }
-  
 
   goBack(): void {
-    // Redirigir a la página anterior
-    this.Router.navigate(['/cliente']);
+    this.router.navigate(['/cliente']);
   }
 }

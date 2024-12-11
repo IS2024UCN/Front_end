@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ResponseAPILogin, User } from '../interfaces/ResponseAPI';
+import { ResponseAPIChangePassword, ResponseAPILogin, User } from '../interfaces/ResponseAPI';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
@@ -21,20 +21,19 @@ export class AuthServiceService {
     try {
       const data = await firstValueFrom(this.http.post<ResponseAPILogin>(`${this.baseUrl}/login`, form, this.crearHeaders()));
       console.log('Data: ', data);
-      return data; // No es necesario envolverlo en Promise.resolve, ya que 'data' ya es una promesa resuelta.
+      return data; 
     } catch (error) {
       console.error('Error en el servicio del login [Auth Service]: ', error);
       // Verifica si el error es un HttpErrorResponse
       if (error instanceof HttpErrorResponse) {
         this.errors.push(error.message || 'Error desconocido');
-        // Si el cuerpo del error contiene detalles adicionales, puedes agregarlos
         if (error.error && error.error.message) {
           this.errors.push(error.error.message);
         }
       } else {
         this.errors.push('Error desconocido');
       }
-      return Promise.reject(this.errors); // Devuelve el arreglo de errores
+      return Promise.reject(this.errors); 
     }
   }
 
@@ -51,31 +50,75 @@ export class AuthServiceService {
     }
   } 
 
-  async updatePassword(currentPassword: string, newPassword: string): Promise<any> {
+  async changePassword(form: any): Promise<ResponseAPIChangePassword> {
     try {
-      const data = await firstValueFrom(
-        this.http.post<any>(`${this.baseUrl}/password-change`, { current_password: currentPassword, new_password: newPassword }, this.crearHeaders())
+      // Asegúrate de que this.baseUrl esté configurado correctamente, por ejemplo:
+      // this.baseUrl = 'http://127.0.0.1:8000/api' o usa una variable de entorno si es necesario.
+      
+      const data = await firstValueFrom(this.http.post<ResponseAPIChangePassword>(
+        `http://127.0.0.1:8000/api/update-Password`,  // Asegúrate de que esta URL sea la correcta
+        form,
+        this.crearHeaders()
+      ));
+      
+      console.log('Data: ', data);
+      return data;  // Devuelve la respuesta de la API
+      
+    } catch (error) {
+      console.error('Error en el servicio del cambio de contraseña [Auth Service]: ', error);
+      
+      if (error instanceof HttpErrorResponse) {
+        this.errors.push(error.message || 'Error desconocido');
+        if (error.error && error.error.message) {
+          this.errors.push(error.error.message);  // Agrega detalles de error si están disponibles
+        }
+      } else {
+        this.errors.push('Error desconocido');  // Si el error no es un HttpErrorResponse
+      }
+      
+      return Promise.reject(this.errors);  // Devuelve el array de errores en caso de que haya fallado
+    }
+  }
+  
+  
+
+  async updatePassword(currentPassword: string, newPassword: string): Promise<ResponseAPIChangePassword> {
+    const formData = { current_password: currentPassword, new_password: newPassword };
+    try {
+      const response = await firstValueFrom(
+        this.http.post<ResponseAPIChangePassword>(`${this.baseUrl}/password-change`, formData, {
+          headers: this.crearAuthHeaders().headers,
+        })
       );
-      console.log('Contraseña cambiada correctamente: ', data);
-      return data;
+      console.log('Contraseña cambiada correctamente: ', response);
+      return response;
     } catch (error) {
       console.error('Error en el servicio de cambio de contraseña [Auth Service]: ', error);
   
-      // Verifica si el error es un HttpErrorResponse
       if (error instanceof HttpErrorResponse) {
         this.errors.push(error.message || 'Error desconocido');
-  
-        // Si el cuerpo del error contiene detalles adicionales, puedes agregarlos
         if (error.error && error.error.message) {
           this.errors.push(error.error.message);
         }
       } else {
         this.errors.push('Error desconocido');
       }
-  
-      return Promise.reject(this.errors); // Devuelve el arreglo de errores
+      return Promise.reject(this.errors);
     }
   }
+  
+  
+  
+  crearAuthHeaders() {
+    const token = localStorage.getItem('Token');
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    };
+  }
+  
   
 
    logout(): void{

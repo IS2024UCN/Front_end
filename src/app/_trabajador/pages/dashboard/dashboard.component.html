@@ -1,4 +1,3 @@
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +8,30 @@
   <div class="background-image" style="background-image: url('./assets/FondoVerde.png');"></div>
 
   <div class="content-container">
-      <div class="container">
-        <h1>Bienvenido</h1>
-        <img class="w-32 h-32 rounded-full mx-auto" src="https://picsum.photos/200" alt="Profile picture">
-        <div class="profile-pic"></div>
-        <div class="buttons">
-          <div class="horizontal-buttons">
-            <button class="left" type="button" (click)="goToRegisterTrabajador()"
-              class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
-              REGISTRAR CLIENTE</button>
-            <button class="right" class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
-               INGRESAR PRODUCTO</button>
-          </div>
-          <div class="horizontal-buttons2">
-            <button class="bottom" class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950"> VER CLIENTE</button>
-            <button class="bottom" class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950"> VER PRODUCTOS</button>
-          </div>
+    <div class="container">
+      <h1>Bienvenido</h1>
+      <img class="w-32 h-32 rounded-full mx-auto" src="https://picsum.photos/200" alt="Profile picture">
+      <div class="profile-pic"></div>
+      <div class="buttons">
+        <div class="horizontal-buttons">
+          <button class="left" type="button" (click)="goToRegisterTrabajador()"
+            class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
+            REGISTRAR CLIENTE
+          </button>
+          <button class="right" type="button" (click)="goToProductRegister()"
+            class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
+            INGRESAR PRODUCTO
+          </button>
+        </div>
+        <div class="horizontal-buttons2">
+          <button class="bottom" type="button" class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
+            VER CLIENTE
+          </button>
+          <button class="bottom" type="button" class="button font-semibold rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center text-green-950">
+            VER PRODUCTOS
+          </button>
         </div>
       </div>
+    </div>
   </div>
 </body>
-

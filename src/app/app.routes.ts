@@ -67,6 +67,10 @@ export const routes: Routes = [
             loadComponent: () => import('./_trabajador/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
             },
             {
+                path: 'productRegister',  // Asegúrate de que esta ruta esté correctamente definida
+                loadComponent: () => import('./_auth/pages/productRegisterPage/product-register/product-register.component').then(m => m.ProductRegisterComponent),
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             },
@@ -78,7 +82,7 @@ export const routes: Routes = [
             {
                 path: 'loginTrabajador',
                 loadComponent: () => import('./_auth/pages/loginFormTrabajadorPage/login-trabajador/login-trabajador.component').then(m => m.LoginTrabajadorComponent),
-            },
+            }
         ]
     },
     {
