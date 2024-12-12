@@ -38,7 +38,8 @@ export class ProductRegisterFormComponent {
       price: ['', [Validators.required]],
       year: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      ISBN: ['', [Validators.required]]
+      ISBN: ['', [Validators.required]],
+      review: ['', [Validators.required]],
     });
   }
 
@@ -67,6 +68,10 @@ export class ProductRegisterFormComponent {
 
   get ISBNValidate() {
     return this.form.get('ISBN')?.invalid && this.form.get('ISBN')?.touched;
+  }
+
+  get reviewValidate() {
+    return this.form.get('review')?.invalid && this.form.get('review')?.touched;
   }
 
   //validar que el precio no pueda ser negativo ni 0

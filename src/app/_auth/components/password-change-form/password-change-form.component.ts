@@ -13,6 +13,7 @@ import { LocalStorageService } from '../../../_shared/service/local-storage.serv
   imports: [HttpClientModule, CommonModule, ReactiveFormsModule],
   templateUrl: './password-change-form.component.html',
   styleUrl: './password-change-form.component.css',
+  providers: [AuthServiceService],
 })
 export class PasswordChangeFormComponent implements OnInit {
   passwordChangeForm: FormGroup = this.fb.group({});
@@ -30,8 +31,9 @@ export class PasswordChangeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.passwordChangeForm = this.fb.group({
-      currentPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
+      current_password: ['', [Validators.required]],
+      new_password: ['', [Validators.required, Validators.minLength(8)]],
+      new_password_confirmation: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
@@ -67,6 +69,7 @@ export class PasswordChangeFormComponent implements OnInit {
     this.loginAlert = true;
     try {
       const response = await this.authService.changePassword(this.passwordChangeForm.value);
+      console.log('Response: ', response);
       if (response.data.user) {
         if(this.passwordChangeForm.value.newPassword == this.passwordChangeForm.value.confirmPassword){
           if (response.data.user.password == this.passwordChangeForm.value.currentPassword) {
