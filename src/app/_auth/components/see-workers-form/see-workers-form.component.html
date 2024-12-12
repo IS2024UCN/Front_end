@@ -1,4 +1,9 @@
-<div class="relative overflow-x-auto">
+<div class="container mx-auto p-4">
+ <div class="relative overflow-x-auto">
+    <!-- Barra de búsqueda -->
+    <div class="mb-4">
+        <input type="text" placeholder="Buscar por nombre" (input)="onSearch($event)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+    </div>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -23,7 +28,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let users of workers">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let users of filteredUsers">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
 
                     {{ users.id }}
@@ -48,4 +53,5 @@
   
         </tbody>
     </table>
-  </div>
+ </div>
+</div>
