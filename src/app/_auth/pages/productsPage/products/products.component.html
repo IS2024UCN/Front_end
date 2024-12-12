@@ -4,6 +4,9 @@
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
+                    ISBN
+                </th>
+                <th scope="col" class="px-6 py-3">
                     Titulo
                 </th>
                 <th scope="col" class="px-6 py-3">
@@ -13,33 +16,45 @@
                     Precio
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Año
+                    Editorial/estudio
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Año
-              </th><th scope="col" class="px-6 py-3">
-                Año
-            </th>
+                  Fecha de publicación	
+                </th><th scope="col" class="px-6 py-3">
+                    Tipo
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Stock disponible
+                </th>
   
             </tr>
         </thead>
         <tbody>
             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let product of products">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ product.title }}
+                    {{ product.ISBN }}
                 </th>
                 <td class="px-6 py-4">
-                {{ product.creator }}
+                {{ product.title }}
                 </td>
                 <td class="px-6 py-4">
-                  {{ product.price }}
+                  {{ product.creator }}
                 </td>
                 <td class="px-6 py-4">
-                    ${{product.price}}
+                    ${{product.rental_price}}
                 </td>
                 <td class="px-6 py-4">
-                  Hola
-              </td>
+                    {{product.publisher}}
+                </td>
+                <td class="px-6 py-4">
+                    {{product.release_date.split('T')[0]}}
+                </td>
+                <td class="px-6 py-4">
+                    {{product.type}}
+                </td>
+                <td class="px-6 py-4">
+                    {{product.available_stock}}
+                </td>
             </tr>
   
         </tbody>

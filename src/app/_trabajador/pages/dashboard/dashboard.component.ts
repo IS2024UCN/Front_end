@@ -9,7 +9,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
+  styleUrl: './dashboard.component.css',
+  providers: []
 })
 export class DashboardComponent {
   constructor(private router: Router) {}
@@ -20,5 +21,9 @@ export class DashboardComponent {
   
   goToProductRegister() {
     this.router.navigate(['/trabajador/productRegister']);
+  }
+
+  goToSeeProducts() {
+    this.router.navigate(['/trabajador/seeProducts']);
   }
 }

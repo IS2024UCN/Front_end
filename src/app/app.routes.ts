@@ -71,8 +71,12 @@ export const routes: Routes = [
             loadComponent: () => import('./_trabajador/pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
             },
             {
-                path: 'productRegister',  // Asegúrate de que esta ruta esté correctamente definida
+                path: 'productRegister',  
                 loadComponent: () => import('./_auth/pages/productRegisterPage/product-register/product-register.component').then(m => m.ProductRegisterComponent),
+            },
+            {
+                path: 'seeProducts',  
+                loadComponent: () => import('./_auth/pages/productsPage/products/products.component').then(m => m.ProductsComponent),
             },
             {
                 path: '**',
