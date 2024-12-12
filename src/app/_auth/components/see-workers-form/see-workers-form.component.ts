@@ -16,18 +16,26 @@ import { AuthServiceService } from '../../service/auth-service.service';
   export class SeeWorkersFormComponent implements OnInit {
 
     authService = inject(AuthServiceService);
-    workers: any = [];
+    workers: any[] = [];
+    filteredUsers: any[] = [];
+
   
-    constructor() {}
+    constructor() {}  
   
     ngOnInit(): void {
       this.authService.getWorkers().then((data: any) => {
           console.log('Data: ', data);
           this.workers = data.data;
+          this.filteredUsers = this.workers;
         })
         .catch((error: any) => {
           console.error('Error fetching workers:', error);
         });
+    }
+
+    onSearch(event: Event): void {
+      const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+      this.filteredUsers = this.workers.filter(user => user.name.toLowerCase().includes(searchTerm));
     }
   }
   

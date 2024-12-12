@@ -1,0 +1,27 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    padding-right: 270px;
+}
+  
+.relative {
+    overflow-x: auto;
+}
+  
+table {
+    width: 100%;
+    
+}
+  
+thead {
+    
+}
+  
+th {
+    
+}
+  
+tbody {
+/* Aquí puedes agregar estilos adicionales para las filas de datos */
+}
