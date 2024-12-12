@@ -14,6 +14,7 @@ export class AuthServiceService {
   private baseUrl = 'http://127.0.0.1:8000/api';
   public errors: string[] = [];
   private userLogged: User | null = null;
+  private localStorageService: LocalStorageService = new LocalStorageService();
 
   constructor(private http: HttpClient) {}
 
@@ -49,6 +50,29 @@ export class AuthServiceService {
       return Promise.reject(this.errors)
     }
   } 
+
+  async productRegister(form: any): Promise<any> {
+    try {
+      const options = this.crearAuthHeaders();
+      const data = await firstValueFrom(this.http.post<any>(`${this.baseUrl}/registerProduct`, form, options));
+      console.log('Producto registrado: ', data);
+  
+      // Guardar el producto en el LocalStorage
+      this.localStorageService.addProduct(data);
+  
+      // Aquí agregamos el campo 'error' para facilitar la lógica del componente
+      return { error: false, message: data.message, data: data.data };
+    } catch (error) {
+      console.log('Error en el servicio del registro de producto [Auth Service]: ', error);
+      const e = error as HttpErrorResponse;
+      this.errors.push(e.message || 'Error desconocido');
+      return { error: true, message: this.errors.join(', ') };
+    }
+  }
+  
+  
+  
+  
 
   async workerRegister(form: any): Promise<ResponseAPIWorkerRegister> {
     try {

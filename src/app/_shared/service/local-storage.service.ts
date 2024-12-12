@@ -9,17 +9,19 @@ export class LocalStorageService {
   private userLogged: User | null = null;
   private password: string | null = null;
   private role: number | null = null;
+  private products: any[] = [];
   user: any;
 
   constructor() { }
 
-  setClientLogger(user: User): void{
+  // Métodos para gestionar usuarios
+  setClientLogger(user: User): void {
     this.userLogged = user;
     localStorage.setItem('User', JSON.stringify(user));
   }
 
   getClientLogger(): User | null {
-    if(!this.userLogged){
+    if (!this.userLogged) {
       this.userLogged = JSON.parse(localStorage.getItem('User') || '{}');
     }
     return this.userLogged;
@@ -29,8 +31,8 @@ export class LocalStorageService {
     localStorage.setItem('Token', token);
   }
 
-  getPasswd(): string | null {  
-    if(!this.userLogged){
+  getPasswd(): string | null {
+    if (!this.userLogged) {
       this.password = JSON.parse(localStorage.getItem('password') || '{}');
     }
     return this.password;
@@ -44,4 +46,22 @@ export class LocalStorageService {
     return localStorage.getItem('Token');
   }
 
+  // Métodos para gestionar productos
+  setProducts(products: any[]): void {
+    this.products = products;
+    localStorage.setItem('Products', JSON.stringify(products));
+  }
+
+  getProducts(): any[] {
+    if (this.products.length === 0) {
+      this.products = JSON.parse(localStorage.getItem('Products') || '[]');
+    }
+    return this.products;
+  }
+
+  addProduct(product: any): void {
+    this.products = this.getProducts(); // Asegurarse de obtener los productos actuales
+    this.products.push(product);
+    localStorage.setItem('Products', JSON.stringify(this.products));
+  }
 }
