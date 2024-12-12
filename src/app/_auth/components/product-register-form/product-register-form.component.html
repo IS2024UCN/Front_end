@@ -49,26 +49,33 @@
     
             <!-- Fecha de Publicación -->
             <div class="mb-2">
-              <label for="year" class="mb-2 text-base font-medium text-gray-900" style="color: #618985; font-family: 'Impact', serif;">Fecha de Publicación</label>
-              <input name="year" type="date" formControlName="year" id="year"
+              <label for="release_date" class="mb-2 text-base font-medium text-gray-900" style="color: #618985; font-family: 'Impact', serif;">Fecha de Publicación</label>
+              <input name="release_date" type="date" formControlName="release_date" id="release_date"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
             </div>
     
             <!-- Costo -->
             <div class="mb-2">
               <label for="price" class="mb-2 text-base font-medium text-gray-900" style="color: #618985; font-family: 'Impact', serif;">Costo</label>
-              <input name="price" type="number" formControlName="price" id="price"
+              <input name="price" type="number" formControlName="rental_price" id="price"
                 placeholder="Ingrese el costo"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
             </div>
-    
-            <!-- Reseña -->
+            <!-- Cantidad -->
             <div class="mb-2">
-              <label for="review" class="mb-2 text-base font-medium text-gray-900" style="color: #618985; font-family: 'Impact', serif;">Reseña</label>
-              <textarea name="review" formControlName="review" id="review"
-                placeholder="Ingrese la reseña"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5"></textarea>
+              <label for="initial_stock" class="mb-2 text-base font-medium text-gray-900" style="color: #618985; font-family: 'Impact', serif;">Cantidad</label>
+              <input name="initial_stock" type="number" formControlName="initial_stock" id="initial_stock"
+                placeholder="Ingrese la cantidad"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
             </div>
+            <!-- Editorial/Estudio -->
+            <div class="mb-2">
+              <label for="publisher" class="mb-2 text-base font-medium text-gray-900" style="color: #618985; font-family: 'Impact', serif;">Editorial/Estudio</label>
+              <input name="publisher" type="text" formControlName="publisher" id="publisher"
+                placeholder="Ingrese la editorial o estudio"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" />
+            </div>
+
     
             <!-- Botones -->
             <div class="flex justify-between mt-4">

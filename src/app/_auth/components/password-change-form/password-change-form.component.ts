@@ -54,6 +54,7 @@ export class PasswordChangeFormComponent implements OnInit {
 
       if (!response.error) {
         this.successMessage = 'Contraseña cambiada exitosamente';
+        this.router.navigate(['/login']); 
       } else {
         this.errorMessage.push(response.details || 'Error al cambiar la contraseña');
       }
@@ -65,5 +66,9 @@ export class PasswordChangeFormComponent implements OnInit {
 
   goBack(): void {
     this.router.navigate(['/cliente']);
+  }
+
+  redirectToLogin() {
+    this.router.navigate(['/login']);
   }
 }

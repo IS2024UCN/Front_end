@@ -24,7 +24,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center; /* Cambiado a center */
-    height: 100vh;
+    height: 120vh;
     padding: 20px;
     padding-right: 255px;
     z-index: 2;

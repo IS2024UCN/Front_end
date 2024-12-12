@@ -35,11 +35,12 @@ export class ProductRegisterFormComponent {
     this.form = this.fb.group({
       title: ['', [Validators.required]],
       creator: ['', [Validators.required]],
-      price: ['', [Validators.required]],
-      year: ['', [Validators.required]],
+      rental_price: ['', [Validators.required]],
+      publisher: ['', [Validators.required]],
+      release_date: ['', [Validators.required]],
       type: ['', [Validators.required]],
       ISBN: ['', [Validators.required]],
-      review: ['', [Validators.required]],
+      initial_stock: ['', [Validators.required]],
     });
   }
 
@@ -54,12 +55,12 @@ export class ProductRegisterFormComponent {
     return this.form.get('creator')?.invalid && this.form.get('creator')?.touched;
   }
 
-  get priceValidate() {
-    return this.form.get('price')?.invalid && this.form.get('price')?.touched;
+  get rentalPriceValidate() {
+    return this.form.get('rental_price')?.invalid && this.form.get('rental_price')?.touched;
   }
 
-  get yearValidate() {
-    return this.form.get('year')?.invalid && this.form.get('year')?.touched;
+  get releaseDateValidate() {
+    return this.form.get('release_date')?.invalid && this.form.get('release_date')?.touched;
   }
 
   get typeValidate() {
@@ -70,21 +71,16 @@ export class ProductRegisterFormComponent {
     return this.form.get('ISBN')?.invalid && this.form.get('ISBN')?.touched;
   }
 
-  get reviewValidate() {
-    return this.form.get('review')?.invalid && this.form.get('review')?.touched;
+  get publisherValidate() {
+    return this.form.get('publisher')?.invalid && this.form.get('publisher')?.touched;
+  }
+  get initial_stockValidate() {
+    return this.form.get('initial_stock')?.invalid && this.form.get('initial_stock')?.touched;
   }
 
   //validar que el precio no pueda ser negativo ni 0
-  validatePrice(price: number): boolean {
-    if (price <= 0) {
-      return false;
-    }
-    return true;
-  }
-
-  //validar que el año sea mayor a 0
-  validateYear(year: number): boolean {
-    if (year <= 0) {
+  validatePrice(rental_price: number): boolean {
+    if (rental_price <= 0) {
       return false;
     }
     return true;
