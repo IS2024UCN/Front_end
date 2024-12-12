@@ -102,7 +102,7 @@ export class workerRegisterComponent {
         setTimeout(() => {
           this.good = false;
           this.message = [];
-          this.Router.navigate(['/loginTrabajador']);
+          this.Router.navigate(['/administrador']);
         }, 3000);
 
       } else {

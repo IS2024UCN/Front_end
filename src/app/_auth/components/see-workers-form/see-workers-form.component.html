@@ -1,45 +1,49 @@
-<p>see-workers-form works!</p>
 <div class="relative overflow-x-auto">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">
-                    Titulo
+                    Id
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Creador
+                    Name
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Precio
+                    Rut
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    Año
+                    Email
                 </th>
                 <th scope="col" class="px-6 py-3">
-                  Año
-              </th><th scope="col" class="px-6 py-3">
-                Año
-            </th>
+                    Phone
+                </th><th scope="col" class="px-6 py-3">
+                    Active
+                </th>
   
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let product of products">
+            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let users of workers">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    {{ product.title }}
+
+                    {{ users.id }}
                 </th>
                 <td class="px-6 py-4">
-                {{ product.creator }}
+                {{ users.name }}
                 </td>
                 <td class="px-6 py-4">
-                  {{ product.price }}
+                  {{ users.rut }}
                 </td>
                 <td class="px-6 py-4">
-                    ${{product.price}}
+                    {{users.email}}
                 </td>
                 <td class="px-6 py-4">
-                  Hola
-              </td>
+                    {{users.phone}}
+                </td>
+                <td class="px-6 py-4">
+                    
+                    {{users.active.toString() === '1' ? 'Activo' : 'Inactivo'}}
+                </td>
             </tr>
   
         </tbody>

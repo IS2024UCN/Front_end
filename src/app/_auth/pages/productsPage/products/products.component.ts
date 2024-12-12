@@ -22,6 +22,7 @@ export class ProductsComponent implements OnInit {
     this.authService
       .getProducts()
       .then((data: any) => {
+        console.log('Data: ', data);
         this.products = data.data;
       })
       .catch((error: any) => {

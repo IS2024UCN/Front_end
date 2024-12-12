@@ -15,22 +15,19 @@ import { AuthServiceService } from '../../service/auth-service.service';
 })
   export class SeeWorkersFormComponent implements OnInit {
 
-
-    productsService = inject(AuthServiceService);
-    products: any = [];
-
-    constructor(){}
-
+    authService = inject(AuthServiceService);
+    workers: any = [];
+  
+    constructor() {}
+  
     ngOnInit(): void {
-      this.productsService.getProducts().then((data: any) => {
-        this.products = data.data;
-      }
-      //Validar que la lista este vacia o haya algun error
-      ).catch((error: any) => {
-        console.error('Error: ', error);
-      }
-
-    );
+      this.authService.getWorkers().then((data: any) => {
+          console.log('Data: ', data);
+          this.workers = data.data;
+        })
+        .catch((error: any) => {
+          console.error('Error fetching workers:', error);
+        });
     }
-
-}
+  }
+  
