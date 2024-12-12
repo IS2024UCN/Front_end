@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, input } from '@angular/core';
+import { Component, inject, Input, input } from '@angular/core';
 import { AuthServiceService } from '../../../_auth/service/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { User } from '../../../_auth/interfaces/ResponseAPI';
+import { LocalStorageService } from '../../service/local-storage.service';
 
 @Component({
   selector: 'shared-navbar',
@@ -17,6 +18,8 @@ export class NavbarComponent {
 
   menuOpen = false;
   @Input() Client!: User;
+  
+  private localStorageService = inject(LocalStorageService);
 
   constructor(private router:Router, private AuthServiceService:AuthServiceService) {}
 
@@ -24,11 +27,5 @@ export class NavbarComponent {
     this.AuthServiceService.logout();
     this.router.navigate(['/login']);
   }
-  toggleMenu(): void {
-    this.menuOpen = !this.menuOpen;
-  }
-  goToPasswordChange(): void {
-    // Redirige a la ruta completa de password-change 
-    this.router.navigate(['/cliente/password-change']);
-  }
+  
 }

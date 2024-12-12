@@ -8,6 +8,8 @@ export class LocalStorageService {
 
   private userLogged: User | null = null;
   private password: string | null = null;
+  private role: number | null = null;
+  user: any;
 
   constructor() { }
 
@@ -42,7 +44,4 @@ export class LocalStorageService {
     return localStorage.getItem('Token');
   }
 
-  getRole(): number | null {
-    return this.getClientLogger()?.role_id ?? null;
-  }
 }

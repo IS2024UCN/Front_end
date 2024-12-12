@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthServiceService } from '../../service/auth-service.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'auth-product-register-form',
@@ -25,8 +26,9 @@ export class ProductRegisterFormComponent {
   private authService = inject(AuthServiceService);
 
 
-  constructor(private fb: FormBuilder, /*private Router: Router*/) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.formulario();
+    
   }
 
   formulario() {
@@ -38,6 +40,9 @@ export class ProductRegisterFormComponent {
       type: ['', [Validators.required]],
       ISBN: ['', [Validators.required]]
     });
+  }
+
+  onSubmit() {
   }
 
   get titleValidate() {
@@ -96,6 +101,10 @@ export class ProductRegisterFormComponent {
       return false;
     }
     return true;
+  }
+
+  goBack() {
+    this.router.navigate(['/trabajador/dashboard']);
   }
 
   

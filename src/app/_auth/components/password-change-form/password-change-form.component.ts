@@ -1,66 +1,92 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthServiceService } from '../../service/auth-service.service';
+import { LocalStorageService } from '../../../_shared/service/local-storage.service';
 
 @Component({
   selector: 'auth-password-change-form',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [HttpClientModule, CommonModule, ReactiveFormsModule],
   templateUrl: './password-change-form.component.html',
-  styleUrls: ['./password-change-form.component.css'],
-  providers: [AuthServiceService],
+  styleUrl: './password-change-form.component.css',
 })
 export class PasswordChangeFormComponent implements OnInit {
-  passwordChangeForm!: FormGroup;
-  errorMessage: string[] = [];
-  successMessage: string = '';
+  passwordChangeForm: FormGroup = this.fb.group({});
 
+  loginAlert: boolean = false;
+  error: boolean = false;
+  errorMessage: string[] = [];
   constructor(
     private fb: FormBuilder,
     private authService: AuthServiceService,
     private router: Router 
   ) {}
+  
+  private localStorageService = inject(LocalStorageService);
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.passwordChangeForm = this.fb.group({
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
-    }, { validators: this.passwordMatchValidator }); // Agregar validador global
+    });
   }
 
-  // Validación global para que newPassword y confirmPassword coincidan
-  passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
-    const newPassword = group.get('newPassword')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return newPassword && confirmPassword && newPassword !== confirmPassword
-      ? { passwordMismatch: true }
-      : null;
+  get currentPassword() {
+    return this.passwordChangeForm.get('currentPassword')?.invalid && this.passwordChangeForm.get('currentPassword')?.touched;
   }
 
+  get newPassword() {
+    return this.passwordChangeForm.get('newPassword')?.invalid && this.passwordChangeForm.get('newPassword')?.touched;
+  }
+
+  get confirmPassword() {
+    return this.passwordChangeForm.get('confirmPassword')?.invalid && this.passwordChangeForm.get('confirmPassword')?.touched;
+  }
+
+  get passwordMismatch(): boolean {
+    return (
+      this.passwordChangeForm.get('newPassword')?.value !== this.passwordChangeForm.get('confirmPassword')?.value
+    );
+  }
   async onSubmit() {
+
+  }
+
+  async ChangePassword() {
+
     if (this.passwordChangeForm.invalid) {
-      Object.values(this.passwordChangeForm.controls).forEach(control => {
+      Object.values(this.passwordChangeForm.controls).forEach((control) => {
         control.markAsTouched();
       });
       return;
     }
-
+    this.loginAlert = true;
     try {
-      const { currentPassword, newPassword } = this.passwordChangeForm.value;
-      const response = await this.authService.changePassword({ currentPassword, newPassword });
-
-      if (!response.error) {
-        this.successMessage = 'Contraseña cambiada exitosamente';
+      const response = await this.authService.changePassword(this.passwordChangeForm.value);
+      if (response.data.user) {
+        if(this.passwordChangeForm.value.newPassword == this.passwordChangeForm.value.confirmPassword){
+          if (response.data.user.password == this.passwordChangeForm.value.currentPassword) {
+            this.localStorageService.setPasswd(this.passwordChangeForm.value.newPassword);
+            alert('Contraseña cambiada exitosamente.');
+          }
+        }
       } else {
-        this.errorMessage.push(response.details || 'Error al cambiar la contraseña');
+        alert('Error al cambiar la contraseña.');
       }
     } catch (error) {
-      console.error('Error al cambiar la contraseña', error);
-      this.errorMessage.push('Hubo un error al cambiar la contraseña');
+      this.error = true;
+      this.errorMessage.push('Error al cambiar la contraseña');
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = [];
+      }, 3000);
+      console.log('Error en el complemento del login [Login Form]: ', error);
     }
+    alert('Contraseña cambiada exitosamente.');
   }
 
   goBack(): void {

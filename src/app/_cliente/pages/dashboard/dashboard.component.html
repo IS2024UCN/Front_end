@@ -1,5 +1,5 @@
 
- <!-- Main Content -->
+<!-- Main Content -->
 <main class="main-content">
   <div class="content-container">
     <!-- Search Bar -->
@@ -23,6 +23,19 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
+      </div>
+      <!-- Botón en el lado derecho de la barra de búsqueda -->
+      <div class="relative right-menu">
+        <button type="button" (click)="toggleRightMenu()" class="menu-button text-white flex items-center">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 10a2 2 0 110-4 2 2 0 010 4zm4 0a2 2 0 110-4 2 2 0 010 4zm4 0a2 2 0 110-4 2 2 0 010 4z" fill="black"></path>
+          </svg>
+        </button>
+        <ul *ngIf="rightMenuOpen" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+          <li>
+            <button (click)="goToPasswordChange()" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar Contraseña</button>
+          </li>
+        </ul>
       </div>
     </div>
   </div>

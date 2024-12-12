@@ -14,13 +14,20 @@ import { CommonModule } from '@angular/common';
 export class DashboardComponent {
   placeholders = Array(9).fill(null);
 
-  menuOpen = false;
+  
   selectedProduct: string | null = null;
 
   constructor(private router: Router) {} 
 
+  menuOpen = false;
+  rightMenuOpen = false;
+
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
+  }
+
+  toggleRightMenu(): void {
+    this.rightMenuOpen = !this.rightMenuOpen;
   }
 
   selectProduct(product: string): void {
@@ -30,4 +37,9 @@ export class DashboardComponent {
     console.log(`Producto seleccionado: ${product}`);
   }
 
+  goToPasswordChange(): void {
+    this.router.navigate(['/cliente/password-change']);
+  }
+
+  
 }

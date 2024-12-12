@@ -67,19 +67,12 @@ export class AuthServiceService {
 
 
 
-  async changePassword(form: any): Promise<ResponseAPIChangePassword> {
+  async changePassword(form: any): Promise<any> {
     try {
-      // Asegúrate de que this.baseUrl esté configurado correctamente, por ejemplo:
-      // this.baseUrl = 'http://127.0.0.1:8000/api' o usa una variable de entorno si es necesario.
+      const response = await firstValueFrom(this.http.post( `${this.baseUrl}/update-Password`, form, this.crearHeaders()));
       
-      const data = await firstValueFrom(this.http.post<ResponseAPIChangePassword>(
-        `http://127.0.0.1:8000/api/update-Password`,  // Asegúrate de que esta URL sea la correcta
-        form,
-        this.crearHeaders()
-      ));
-      
-      console.log('Data: ', data);
-      return data;  // Devuelve la respuesta de la API
+      console.log('Data: ', response);
+      return response;  // Devuelve la respuesta de la API
       
     } catch (error) {
       console.error('Error en el servicio del cambio de contraseña [Auth Service]: ', error);

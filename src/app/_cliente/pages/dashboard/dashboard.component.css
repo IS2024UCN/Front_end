@@ -53,6 +53,9 @@ html, body {
     border: none;
     cursor: pointer;
 }
+.menu-button svg {
+    fill: white;
+}
 .menu-dropdown {
     position: absolute;
     background-color: white;
@@ -98,6 +101,12 @@ html, body {
     top: 50%;
     transform: translateY(-50%);
     color: #6b7280;
+}
+
+.right-menu {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 /* Book Grid */
