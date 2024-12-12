@@ -6,6 +6,7 @@ import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalStorageService } from '../../_shared/service/local-storage.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,7 @@ export class AuthServiceService {
   async productRegister(form: any): Promise<any> {
     try {
       const options = this.crearAuthHeaders();
-      const data = await firstValueFrom(this.http.post<any>(`${this.baseUrl}/registerProduct`, form, options));
+      const data = await firstValueFrom(this.http.post<any>(`http://127.0.0.1:8000/api/registerProduct`, form, options));
       console.log('Producto registrado: ', data);
   
       // Guardar el producto en el LocalStorage
@@ -69,8 +70,10 @@ export class AuthServiceService {
       return { error: true, message: this.errors.join(', ') };
     }
   }
-  updateProductPrice(ISBN: string, rental_price: number): Promise<any> {
-    return this.http.put(`/api/products/${ISBN}`, { rental_price }).toPromise();
+
+  updateProductPrice(isbn: string, newPrice: number): Observable<any> {
+    const url = `${this.baseUrl}/products/${isbn}/update-price`; // Asegúrate que coincida con la ruta del backend
+    return this.http.put(url, { new_price: newPrice });
   }
   
   

@@ -79,6 +79,7 @@ export class ProductRegisterFormComponent {
           this.router.navigate(['/trabajador/dashboard']); 
         }, 3000); // Esperar 3 segundos para mostrar el mensaje
       } else {
+        //mensaje para identificar cual es el error
         console.error('Error en el registro del producto: ', response);
         this.error = true;
         this.errorMessage.push(response.message || 'Error en el registro');

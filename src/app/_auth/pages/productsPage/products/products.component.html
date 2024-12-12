@@ -30,16 +30,17 @@
           <td class="px-6 py-4">{{ product.creator }}</td>
           <td class="px-6 py-4">
             <!-- Precio editable -->
+            <!-- Precio editable -->
             <span *ngIf="!product.editingPrice">
-              ${{ product.rental_price }}
-              <button (click)="enableEditPrice(product)" class="text-blue-500 ml-2">Editar</button>
-            </span>
-            <span *ngIf="product.editingPrice">
-              <input type="number" [(ngModel)]="product.rental_price" class="border rounded px-2 py-1" />
-              <button (click)="savePrice(product)" class="text-green-500 ml-2">Guardar</button>
-              <button (click)="cancelEditPrice(product)" class="text-red-500 ml-2">Cancelar</button>
-            </span>
-          </td>
+                 ${{ product.rental_price }}
+                    <button (click)="enableEditPrice(product)" class="text-blue-500 ml-2">Editar</button>
+                </span>
+                 <span *ngIf="product.editingPrice">
+                 <input type="number" [(ngModel)]="product.rental_price" class="border rounded px-2 py-1" />
+                <button (click)="savePrice(product)" class="text-green-500 ml-2">Guardar</button>
+                 <button (click)="cancelEditPrice(product)" class="text-red-500 ml-2">Cancelar</button>
+             </span>
+            </td>
           <td class="px-6 py-4">{{ product.publisher }}</td>
           <td class="px-6 py-4">{{ product.release_date.split('T')[0] }}</td>
           <td class="px-6 py-4">{{ product.type }}</td>

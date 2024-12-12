@@ -53,15 +53,19 @@ export class ProductsComponent implements OnInit {
   
 
   savePrice(product: any): void {
-    product.editingPrice = false;
-    this.authService
-      .updateProductPrice(product.ISBN, product.rental_price)
-      .then(() => {
-        console.log('Precio actualizado exitosamente.');
-      })
-      .catch((error: any) => {
-        console.error('Error actualizando el precio:', error);
-      });
+    const isbn = product.ISBN;
+    const newPrice = product.rental_price;
+  
+    this.authService.updateProductPrice(isbn, newPrice).subscribe({
+      next: (response) => {
+        console.log('Precio actualizado en el backend:', response);
+        product.editingPrice = false; // Salir del modo edición
+      },
+      error: (err) => {
+        console.error('Error al actualizar el precio:', err);
+        alert('Hubo un error al actualizar el precio. Por favor, inténtalo nuevamente.');
+      }
+    });
   }
 
   cancelEditPrice(product: any): void {
