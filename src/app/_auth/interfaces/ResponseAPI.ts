@@ -36,6 +36,7 @@ export interface ResponseAPIWorkerRegister {
 // src/app/_auth/interfaces/ResponseAPI.ts
 
 export interface ResponseAPIChangePassword {
+  data: any;
   message: string;
   error: boolean;
   details?: string;  

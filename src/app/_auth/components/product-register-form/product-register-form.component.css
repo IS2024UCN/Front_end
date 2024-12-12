@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+    position: relative;
+}
+  
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+  
+/* Estilos para el contenedor principal */
+.content-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Cambiado a center */
+    height: 100vh;
+    padding: 20px;
+    padding-right: 255px;
+    z-index: 2;
+}
+  
+/* Estilos para el contenedor del formulario */
+.form-container {
+    background-color: #96bbbb;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 800px; /* Ajusta el ancho máximo */
+    border: 3px solid #000000;
+    width: 100%;
+    z-index: 2;
+    margin: auto; /* Asegura que el formulario esté centrado */
+}
+  
+.primarybutton {
+    background-color: #618985;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+}
+  
+.primarybutton:hover {
+    background-color: #000000;
+}
+  
+.secundarybutton {
+    background-color: #618985;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+  
+.secundarybutton:hover {
+    background-color: #000000;
+    color: #ffffff;
+}

@@ -56,7 +56,6 @@ export class LoginformComponent {
     this.loginAlert = true;
     
     try {
-      console.log("errorAqui");
       const response = await this.authService.login(this.form.value);
       //TODO validar si el usuario existe en response
       if(response.data.user){

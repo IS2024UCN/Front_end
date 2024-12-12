@@ -7,6 +7,9 @@ import { User } from '../../_auth/interfaces/ResponseAPI';
 export class LocalStorageService {
 
   private userLogged: User | null = null;
+  private password: string | null = null;
+  private role: number | null = null;
+  user: any;
 
   constructor() { }
 
@@ -26,8 +29,19 @@ export class LocalStorageService {
     localStorage.setItem('Token', token);
   }
 
+  getPasswd(): string | null {  
+    if(!this.userLogged){
+      this.password = JSON.parse(localStorage.getItem('password') || '{}');
+    }
+    return this.password;
+  }
+
+  setPasswd(passwd: string): void {
+    localStorage.setItem('password', JSON.stringify(passwd));
+  }
 
   getToken(): string | null {
     return localStorage.getItem('Token');
   }
+
 }

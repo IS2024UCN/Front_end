@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthServiceService } from '../../service/auth-service.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'auth-product-register-form',
@@ -25,8 +26,9 @@ export class ProductRegisterFormComponent {
   private authService = inject(AuthServiceService);
 
 
-  constructor(private fb: FormBuilder, /*private Router: Router*/) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.formulario();
+    
   }
 
   formulario() {
@@ -36,8 +38,12 @@ export class ProductRegisterFormComponent {
       price: ['', [Validators.required]],
       year: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      ISBN: ['', [Validators.required]]
+      ISBN: ['', [Validators.required]],
+      review: ['', [Validators.required]],
     });
+  }
+
+  onSubmit() {
   }
 
   get titleValidate() {
@@ -62,6 +68,10 @@ export class ProductRegisterFormComponent {
 
   get ISBNValidate() {
     return this.form.get('ISBN')?.invalid && this.form.get('ISBN')?.touched;
+  }
+
+  get reviewValidate() {
+    return this.form.get('review')?.invalid && this.form.get('review')?.touched;
   }
 
   //validar que el precio no pueda ser negativo ni 0
@@ -96,6 +106,10 @@ export class ProductRegisterFormComponent {
       return false;
     }
     return true;
+  }
+
+  goBack() {
+    this.router.navigate(['/trabajador/dashboard']);
   }
 
   
