@@ -3,6 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { AuthServiceService } from '../../service/auth-service.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +21,7 @@ import { AuthServiceService } from '../../service/auth-service.service';
     filteredUsers: any[] = [];
 
   
-    constructor() {}  
+    constructor(private router:Router) {}  
   
     ngOnInit(): void {
       this.authService.getWorkers().then((data: any) => {
@@ -35,7 +36,13 @@ import { AuthServiceService } from '../../service/auth-service.service';
 
     onSearch(event: Event): void {
       const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
-      this.filteredUsers = this.workers.filter(user => user.name.toLowerCase().includes(searchTerm));
+      this.filteredUsers = this.workers.filter(user =>
+        user.name.toLowerCase().includes(searchTerm) || 
+        user.rut.toLowerCase().includes(searchTerm)
+      );
     }
+
+    goBack(): void {
+      this.router.navigate(['/administrador/dashboard']);
   }
-  
+}

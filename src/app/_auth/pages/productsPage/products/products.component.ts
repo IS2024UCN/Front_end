@@ -39,7 +39,7 @@ export class ProductsComponent implements OnInit {
       });
   }
   enableEditPrice(product: any): void {
-    product.editingPrice = true; // Activa el modo de edición
+    product.editingPrice = true;
   }
 
   onSearch(event: Event): void {
@@ -53,9 +53,9 @@ export class ProductsComponent implements OnInit {
   
 
   savePrice(product: any): void {
-    product.editingPrice = false; // Desactiva el modo de edición
+    product.editingPrice = false;
     this.authService
-      .updateProductPrice(product.ISBN, product.rental_price) // Llama a un servicio para guardar el cambio
+      .updateProductPrice(product.ISBN, product.rental_price)
       .then(() => {
         console.log('Precio actualizado exitosamente.');
       })
