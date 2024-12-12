@@ -1,62 +1,43 @@
-<p>products works!</p>
 <div class="relative overflow-x-auto">
+    <!-- Barra de búsqueda -->
+    <div class="p-4">
+        <input 
+            type="text" 
+            class="border border-gray-300 rounded-lg p-2 w-full" 
+            placeholder="Buscar por título, creador o ISBN..." 
+            [(ngModel)]="searchTerm" 
+            (input)="filterProducts()">
+    </div>
+
+    <!-- Tabla de productos -->
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    ISBN
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Titulo
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Creador
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Precio
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Editorial/estudio
-                </th>
-                <th scope="col" class="px-6 py-3">
-                  Fecha de publicación	
-                </th><th scope="col" class="px-6 py-3">
-                    Tipo
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    Stock disponible
-                </th>
-  
+                <th scope="col" class="px-6 py-3">ISBN</th>
+                <th scope="col" class="px-6 py-3">Titulo</th>
+                <th scope="col" class="px-6 py-3">Creador</th>
+                <th scope="col" class="px-6 py-3">Precio</th>
+                <th scope="col" class="px-6 py-3">Editorial/Estudio</th>
+                <th scope="col" class="px-6 py-3">Fecha de publicación</th>
+                <th scope="col" class="px-6 py-3">Tipo</th>
+                <th scope="col" class="px-6 py-3">Stock disponible</th>
             </tr>
         </thead>
         <tbody>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" *ngFor="let product of products">
+            <tr 
+                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" 
+                *ngFor="let product of filteredProducts">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {{ product.ISBN }}
                 </th>
-                <td class="px-6 py-4">
-                {{ product.title }}
-                </td>
-                <td class="px-6 py-4">
-                  {{ product.creator }}
-                </td>
-                <td class="px-6 py-4">
-                    ${{product.rental_price}}
-                </td>
-                <td class="px-6 py-4">
-                    {{product.publisher}}
-                </td>
-                <td class="px-6 py-4">
-                    {{product.release_date.split('T')[0]}}
-                </td>
-                <td class="px-6 py-4">
-                    {{product.type}}
-                </td>
-                <td class="px-6 py-4">
-                    {{product.available_stock}}
-                </td>
+                <td class="px-6 py-4">{{ product.title }}</td>
+                <td class="px-6 py-4">{{ product.creator }}</td>
+                <td class="px-6 py-4">${{ product.rental_price }}</td>
+                <td class="px-6 py-4">{{ product.publisher }}</td>
+                <td class="px-6 py-4">{{ product.release_date.split('T')[0] }}</td>
+                <td class="px-6 py-4">{{ product.type }}</td>
+                <td class="px-6 py-4">{{ product.available_stock }}</td>
             </tr>
-  
         </tbody>
     </table>
-  </div>
+</div>
