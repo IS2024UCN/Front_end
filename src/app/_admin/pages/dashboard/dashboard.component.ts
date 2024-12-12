@@ -18,4 +18,9 @@ export class DashboardComponent {
     // Redirige a la ruta completa de worker-register bajo administrador
     this.router.navigate(['/administrador/worker-register']);
   }
+
+  goToSeeWorkers(): void {
+    // Redirige a la ruta completa de see-workers bajo administrador
+    this.router.navigate(['/administrador/see-workers']);
+  }
 }

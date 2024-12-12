@@ -25,9 +25,9 @@ export class PasswordChangeFormComponent implements OnInit {
 
   ngOnInit() {
     this.passwordChangeForm = this.fb.group({
-      currentPassword: ['', [Validators.required]],
-      newPassword: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
+      current_password: ['', [Validators.required]],
+      new_password: ['', [Validators.required, Validators.minLength(8)]],
+      new_password_confirmation: ['', [Validators.required]],
     }, { validators: this.passwordMatchValidator }); // Agregar validador global
   }
 

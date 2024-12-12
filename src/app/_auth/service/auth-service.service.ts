@@ -75,7 +75,7 @@ export class AuthServiceService {
       const data = await firstValueFrom(this.http.post<ResponseAPIChangePassword>(
         `http://127.0.0.1:8000/api/update-Password`,  // Asegúrate de que esta URL sea la correcta
         form,
-        this.crearHeaders()
+        this.crearAuthHeaders()
       ));
       
       console.log('Data: ', data);
@@ -128,10 +128,11 @@ export class AuthServiceService {
   
   crearAuthHeaders() {
     const token = localStorage.getItem('Token');
+    console.log('Token: ', token);
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        "authorization": `Bearer ${token}`,
       }),
     };
   }
