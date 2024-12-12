@@ -69,6 +69,9 @@ export class AuthServiceService {
       return { error: true, message: this.errors.join(', ') };
     }
   }
+  updateProductPrice(ISBN: string, rental_price: number): Promise<any> {
+    return this.http.put(`/api/products/${ISBN}`, { rental_price }).toPromise();
+  }
   
   
   
