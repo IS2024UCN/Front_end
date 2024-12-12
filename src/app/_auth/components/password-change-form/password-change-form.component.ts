@@ -49,8 +49,8 @@ export class PasswordChangeFormComponent implements OnInit {
     }
 
     try {
-      const { currentPassword, newPassword } = this.passwordChangeForm.value;
-      const response = await this.authService.changePassword({ currentPassword, newPassword });
+      const { current_password, new_password, new_password_confirmation} = this.passwordChangeForm.value;
+      const response = await this.authService.changePassword({ current_password, new_password, new_password_confirmation });
 
       if (!response.error) {
         this.successMessage = 'Contraseña cambiada exitosamente';

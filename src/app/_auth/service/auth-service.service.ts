@@ -69,6 +69,7 @@ export class AuthServiceService {
 
   async changePassword(form: any): Promise<ResponseAPIChangePassword> {
     try {
+      console.log('Formulario de cambio de contraseña: ', form);
       // Asegúrate de que this.baseUrl esté configurado correctamente, por ejemplo:
       // this.baseUrl = 'http://127.0.0.1:8000/api' o usa una variable de entorno si es necesario.
       
