@@ -2,7 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
-import { ProductsService } from '../../service/products.Service';
+import { AuthServiceService } from '../../service/auth-service.service';
+
 
 @Component({
   selector: 'auth-see-workers-form',
@@ -10,12 +11,12 @@ import { ProductsService } from '../../service/products.Service';
   imports: [CommonModule, HttpClientModule],
   templateUrl: './see-workers-form.component.html',
   styleUrl: './see-workers-form.component.css',
-  providers: [ProductsService]
+  providers: [AuthServiceService]
 })
   export class SeeWorkersFormComponent implements OnInit {
 
 
-    productsService = inject(ProductsService);
+    productsService = inject(AuthServiceService);
     products: any = [];
 
     constructor(){}

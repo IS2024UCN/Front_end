@@ -124,6 +124,17 @@ export class AuthServiceService {
       return Promise.reject(this.errors);
     }
   }
+
+  async getProducts(): Promise<any> {
+    try {
+      const data = await firstValueFrom(this.http.get<any>(this.baseUrl + 'products'));
+      return data; // Eliminado Promise.resolve innecesario
+    } catch (error) {
+      console.error('Error: ', error);
+      const e = error as HttpErrorResponse;
+      throw e.message || 'Server error'; // Usando throw en lugar de Promise.reject
+    }
+  }
   
   
   
