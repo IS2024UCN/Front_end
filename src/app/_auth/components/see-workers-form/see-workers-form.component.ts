@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthServiceService } from '../../service/auth-service.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -60,16 +60,22 @@ export class SeeWorkersFormComponent implements OnInit {
 
   confirmChanges(worker: any): void {
     this.authService.updateWorker(worker.rut, worker.name, worker.phone, worker.email).subscribe({
-      next: (response) => {
-        console.log('Cambios confirmados y actualizados para: ', worker);
-        worker.editing = false; // Finalizar la edición
-      },
-      error: (err) => {
-        console.error('Error al confirmar cambios:', err);
-        alert('Hubo un error al confirmar los cambios. Inténtalo nuevamente.');
-      }
+        next: (response) => {
+            console.log('Cambios confirmados:', response);
+            alert('Cambios confirmados exitosamente.');
+        },
+        error: (err: HttpErrorResponse) => {
+            console.error('Error capturado:', err);
+            if (err.status === 200 && err.error instanceof SyntaxError) {
+                alert('El servidor devolvió una respuesta no válida.');
+            } else {
+                alert(`Error: ${err.message}`);
+            }
+        }
     });
-  }
+}
+
+  
 
   goBack(): void {
     this.router.navigate(['/administrador/dashboard']);
