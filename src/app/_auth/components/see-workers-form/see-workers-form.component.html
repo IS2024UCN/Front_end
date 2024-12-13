@@ -31,8 +31,11 @@
                         <input [(ngModel)]="worker.name" [readonly]="!worker.editing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5" style="width: 200px;"/>
                     </td>
                     <td class="px-6 py-4">
-                        <input [(ngModel)]="worker.rut" [readonly]="!worker.editing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5" style="width: 200px;"/>
+                        <span class="bg-gray-50 text-gray-900 text-sm w-full p-2.5" style="width: 200px; display: inline-block;">
+                            {{ worker.rut }}
+                        </span>
                     </td>
+                    
                     <td class="px-6 py-4">
                         <input [(ngModel)]="worker.email" [readonly]="!worker.editing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5" style="width: 300px;"/>
                     </td>
