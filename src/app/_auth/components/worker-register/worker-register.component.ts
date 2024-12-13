@@ -14,8 +14,7 @@ import { inject } from '@angular/core';
   styleUrl: './worker-register.component.css',
   providers: [AuthServiceService]
 })
-export class workerRegisterComponent {
-
+export class WorkerRegisterComponent {
   form!: FormGroup;
   loginAlert: boolean = false;
   error: boolean = false;
@@ -25,7 +24,7 @@ export class workerRegisterComponent {
 
   private authService = inject(AuthServiceService);
 
-  constructor(private fb: FormBuilder, private Router: Router) {
+  constructor(private fb: FormBuilder, private router: Router) {
     this.formulario();
   }
 
@@ -33,9 +32,9 @@ export class workerRegisterComponent {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       rut: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      last_name: ['', [Validators.required]],
-      phone: ['', [Validators.required]]
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      last_name: ['', [Validators.required, Validators.minLength(3)]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]],
     });
   }
 
@@ -90,6 +89,17 @@ export class workerRegisterComponent {
       return;
     }
 
+    const rut = this.form.get('rut')?.value;
+    if (!this.validateRut(rut)) {
+      this.error = true;
+      this.errorMessage.push('RUT inválido');
+      setTimeout(() => {
+        this.error = false;
+        this.errorMessage = [];
+      }, 3000);
+      return;
+    }
+
     this.loginAlert = true;
 
     try {
@@ -102,19 +112,16 @@ export class workerRegisterComponent {
         setTimeout(() => {
           this.good = false;
           this.message = [];
-          this.Router.navigate(['/administrador']);
+          this.router.navigate(['/administrador']);
         }, 3000);
-
       } else {
-        console.error('Error en el componente del register [Register Form]: ', response);
         this.error = true;
-        this.errorMessage.push('Error de registro');
+        this.errorMessage.push(response.message || 'Error de registro');
       }
-
     } catch (error) {
       console.error('Error inesperado:', error);
       this.error = true;
-      this.errorMessage.push('Error de registro en el formulario');
+      this.errorMessage.push('Error al registrar trabajador, intente nuevamente.');
       setTimeout(() => {
         this.error = false;
         this.errorMessage = [];
@@ -123,6 +130,6 @@ export class workerRegisterComponent {
   }
 
   goBack() {
-    this.Router.navigate(['/administrador']);
+    this.router.navigate(['/administrador']);
   }
 }
