@@ -47,6 +47,13 @@ export class ProductsComponent implements OnInit {
     product.originalPrice = product.rental_price;  // Guarda el precio original
   }
 
+  enableEditStock(product: any): void {
+    if (product.available_stock === 0) {
+      product.editingStock = true;
+      product.originalStock = product.available_stock;
+    } 
+  }
+
   onSearch(event: Event): void {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
     this.filteredProducts = this.products.filter(product =>
@@ -72,11 +79,33 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+
+  saveStock(product: any): void {
+    const isbn = product.ISBN;
+    const newStock = product.available_stock;
+  
+    this.authService.replenishStock(isbn, newStock).subscribe({
+      next: (response) => {
+        console.log('Stock actualizado en el backend:', response);
+        product.editingStock = false; // Salir del modo edición
+        product.available_stock = response.data.available_stock;  // Actualiza el stock localmente
+      },
+      error: (err) => {
+        console.error('Error al actualizar el stock:', err);
+        alert('Hubo un error al actualizar el stock. Por favor, inténtalo nuevamente.');
+      }
+    });
+  }
   
 
   cancelEditPrice(product: any): void {
     product.editingPrice = false;
     product.rental_price = product.originalPrice; // Restaurar el precio original
+  }
+
+  cancelEditStock(product: any): void {
+    product.editingStock = false;
+    product.available_stock = product.originalStock; // Restaurar el stock original
   }
 
   goBack(): void {

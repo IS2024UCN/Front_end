@@ -41,7 +41,7 @@
     </div>
     <div class="product-list" *ngFor="let product of filteredProducts">
       <div class="product-item bg-white border dark:bg-gray-800 dark:border-gray-700 p-4 m-2 rounded-lg flex items-center">
-        <img *ngIf="getImageUrl(product.title)" [src]="getImageUrl(product.title)" alt="{{ product.title }}" class="product-image w-35 h-35 object-cover mr-4">
+        <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.title }}" class="product-image">
         <div>
           <div class="product-title text-xl font-bold mb-2">Titulo: {{ product.title }}</div>
           <div class="product-rental-price text-lg mb-2">Precio de Renta: {{ product.rental_price }}</div>

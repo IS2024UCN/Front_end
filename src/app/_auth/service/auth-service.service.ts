@@ -63,17 +63,11 @@ export class AuthServiceService {
 
   // Método para actualizar la información de un trabajador
   // En tu método updateWorker
-  updateWorker(rut: string, name: string, phone: string, email: string): Observable<any> {
-    return this.http.put(`http://localhost:4200/api/workers/${rut}`, { name, phone, email }).pipe(
-        catchError((err: HttpErrorResponse) => {
-            console.error('Error en el servicio:', err);
-            if (err.status === 200 && typeof err.error === 'string') {
-                console.error('Posible HTML recibido:', err.error); // Muestra la respuesta problemática
-            }
-            return throwError(() => err);
-        })
-    );
-}
+  updateWorker(rut: string, new_name: string, new_phone: string, new_email: string, string_active: boolean): Observable<any> {
+    const headers = this.crearAuthHeaders();
+    const body = { rut, new_name, new_phone, new_email, string_active };
+    return this.http.put(`${this.baseUrl}/updateWorker`, body, headers);
+  }
 
 
 
@@ -109,7 +103,18 @@ export class AuthServiceService {
         })
       );
   }
-  
+
+  replenishStock(isbn: string, quantity: number): Observable<any> {
+    const url = `http://127.0.0.1:8000/api/replenishStock`; // Asegúrate de que coincida con la ruta del backend
+    const body = { ISBN: isbn, quantity: quantity }; // Pasando el ISBN y el nuevo stock
+    return this.http.put(url, body, this.crearAuthHeaders())  // Utiliza 'crearAuthHeaders' para enviar el token de autenticación
+      .pipe(
+        catchError((error) => {
+          console.error('Error al actualizar el stock del producto:', error);
+          throw error;  // Lanza el error para que lo manejes adecuadamente
+        })
+      );
+  }
   
   
   

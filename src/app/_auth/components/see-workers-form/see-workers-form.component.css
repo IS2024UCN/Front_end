@@ -1,8 +1,8 @@
 .container {
-    max-width: 1200px;
+    max-width: 2000px;
     margin: 0 auto;
     padding: 1rem;
-    padding-right: 270px;
+    padding-right: 100px;
 }
   
 .relative {

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { __values } from 'tslib';
+import { cp } from 'fs';
 
 @Component({
   selector: 'auth-see-workers-form',
@@ -59,23 +61,25 @@ export class SeeWorkersFormComponent implements OnInit {
   }
 
   confirmChanges(worker: any): void {
-    this.authService.updateWorker(worker.rut, worker.name, worker.phone, worker.email).subscribe({
-        next: (response) => {
-            console.log('Cambios confirmados:', response);
-            alert('Cambios confirmados exitosamente.');
-        },
-        error: (err: HttpErrorResponse) => {
-            console.error('Error capturado:', err);
-            if (err.status === 200 && err.error instanceof SyntaxError) {
-                alert('El servidor devolvió una respuesta no válida.');
-            } else {
-                alert(`Error: ${err.message}`);
-            }
+    const { rut, name, phone, email, active } = worker;
+    const string_active = active 
+    console.log('Confirmar cambios:', rut, name, phone, email, string_active);
+    this.authService.updateWorker(rut, name, phone, email, string_active).subscribe(
+      (response) => {
+        console.log('Cambios confirmados:', response);
+        alert('Cambios confirmados exitosamente.');
+        worker.editing = false;
+      },
+      (err: HttpErrorResponse) => {
+        console.error('Error capturado:', err);
+        if (err.status === 500) {
+          alert('Error del servidor. Por favor, inténtelo de nuevo más tarde.');
+        } else {
+          alert(`Error: ${err.message}`);
         }
-    });
-}
-
-  
+      }
+    );
+  }
 
   goBack(): void {
     this.router.navigate(['/administrador/dashboard']);

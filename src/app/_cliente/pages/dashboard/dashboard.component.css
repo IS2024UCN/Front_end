@@ -39,6 +39,8 @@ html, body {
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical */
+    max-height: calc(100vh - 100px); /* Ajusta la altura máxima del contenedor */
 }
 
 /* Search Bar */

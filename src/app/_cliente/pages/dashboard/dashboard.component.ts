@@ -23,23 +23,21 @@ export class DashboardComponent {
   
   selectedProduct: string | null = null;
 
-  constructor(private router: Router) {} 
+  constructor(private productService: AuthServiceService, private router: Router) {} 
 
   menuOpen = false;
   rightMenuOpen = false;
 
   ngOnInit(): void {
-    // Obtener la lista de productos al inicializar el componente
-    this.authService
-      .getProducts()
-      .then((data: { data: any[] }) => {
-        console.log('Data: ', data);
-        this.products = data.data;
-        this.filteredProducts = this.products; // Inicializa la lista filtrada con todos los productos
-      })
-      .catch((error: any) => {
-        console.error('Error fetching products:', error);
-      });
+    this.productService.getProducts().then((data: any) => {
+      this.products = data.data.map((product: { title: string; }) => ({
+        ...product,
+        imageUrl: this.getImageUrl(product.title)
+      }));
+      this.filteredProducts = this.products;
+    }).catch((error: any) => {
+      console.error('Error fetching products:', error);
+    });
   }
 
   toggleMenu(): void {
@@ -62,32 +60,19 @@ export class DashboardComponent {
   selectProduct(product: string): void {
     this.selectedProduct = product;
     this.menuOpen = false;
-
-    if (product === 'libro') {
-      this.filteredProducts = this.products.filter(p => p.type === 'libro');
-    } else if (product === 'pelicula') {
-      this.filteredProducts = this.products.filter(p => p.type === 'pelicula');
-    } else {
-      this.filteredProducts = this.products; // Mostrar todos los productos si no es libro ni pelicula
-    } 
     if (product === 'todos') {
-      this.filteredProducts = this.products; // Mostrar todos los productos si no es libro ni pelicula
+      this.filteredProducts = this.products;
+    } else {
+      this.filteredProducts = this.products.filter(p => p.type === product);
     }
+  }
 
-    console.log(`Producto seleccionado: ${product}`);
+  getImageUrl(title: string): string {
+    return `/assets/${title}.jpg`;
   }
 
   goToPasswordChange(): void {
     this.router.navigate(['/cliente/password-change']);
-  }
-
-  getImageUrl(title: string): string | null {
-    const imageUrl = `/assets/${title}.jpg`;
-    const img = new Image();
-    img.src = imageUrl;
-    img.onload = () => imageUrl;
-    img.onerror = () => null;
-    return imageUrl;
   }
 
 }

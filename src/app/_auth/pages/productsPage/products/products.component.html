@@ -45,7 +45,18 @@
                     <td class="px-6 py-4">{{ product.publisher }}</td>
                     <td class="px-6 py-4">{{ product.release_date.split('T')[0] }}</td>
                     <td class="px-6 py-4">{{ product.type }}</td>
-                    <td class="px-6 py-4">{{ product.available_stock }}</td>
+                    <!-- Stock ediable -->
+                    <td class="px-6 py-4">
+                        <span *ngIf="!product.editingStock">
+                            {{ product.available_stock }}
+                            <button *ngIf="product.available_stock === 0" (click)="enableEditStock(product)" class="text-blue-500 ml-2">Editar</button>
+                        </span>
+                        <span *ngIf="product.editingStock">
+                            <input type="number" [(ngModel)]="product.available_stock" class="border rounded px-2 py-1" />
+                            <button (click)="saveStock(product)" [disabled]="product.available_stock === product.originalStock" class="text-green-500 ml-2">Guardar</button>
+                            <button (click)="cancelEditStock(product)" class="text-red-500 ml-2">Cancelar</button>
+                        </span>
+                    </td>
                 </tr>
             </tbody>
         </table>
