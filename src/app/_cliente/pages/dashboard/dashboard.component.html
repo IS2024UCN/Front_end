@@ -44,7 +44,7 @@
         <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.title }}" class="product-image">
         <div>
           <div class="product-title text-xl font-bold mb-2">Titulo: {{ product.title }}</div>
-          <div class="product-rental-price text-lg mb-2">Precio de Renta: {{ product.rental_price }}</div>
+          <div class="product-rental-price text-lg mb-2">Precio de Renta (CLP): ${{ product.rental_price }}</div>
           <div class="product-type text-md">Tipo: {{ product.type }}</div>
         </div>
       </div>
