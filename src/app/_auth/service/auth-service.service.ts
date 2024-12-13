@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ResponseAPIChangePassword, ResponseAPILogin, ResponseAPIWorkerRegister, User } from '../interfaces/ResponseAPI';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { catchError, firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom, throwError } from 'rxjs';
 import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -63,16 +63,18 @@ export class AuthServiceService {
 
   // Método para actualizar la información de un trabajador
   // En tu método updateWorker
-updateWorker(rut: string, newName: string, newPhone: string, newEmail: string): Observable<any> {
-  const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getToken()}`);
-  
-  return this.http.put(`${this.baseUrl}/updateWorker`, {
-    rut: rut,
-    new_name: newName,
-    new_phone: newPhone,
-    new_email: newEmail
-  }, { headers });
+  updateWorker(rut: string, name: string, phone: string, email: string): Observable<any> {
+    return this.http.put(`http://localhost:4200/api/workers/${rut}`, { name, phone, email }).pipe(
+        catchError((err: HttpErrorResponse) => {
+            console.error('Error en el servicio:', err);
+            if (err.status === 200 && typeof err.error === 'string') {
+                console.error('Posible HTML recibido:', err.error); // Muestra la respuesta problemática
+            }
+            return throwError(() => err);
+        })
+    );
 }
+
 
 
 
