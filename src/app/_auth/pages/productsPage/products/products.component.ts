@@ -25,21 +25,26 @@ export class ProductsComponent implements OnInit {
 
   constructor(private router:Router) {}
 
+  loading: boolean = true;
+
   ngOnInit(): void {
-    // Obtener la lista de productos al inicializar el componente
     this.authService
-      .getProducts()
-      .then((data: any) => {
-        console.log('Data: ', data);
-        this.products = data.data;
-        this.filteredProducts = this.products; // Inicializa la lista filtrada con todos los productos
-      })
-      .catch((error: any) => {
-        console.error('Error fetching products:', error);
-      });
-  }
+    .getProducts()
+    .then((data: any) => {
+      console.log('Data: ', data);
+      this.products = data.data;
+      this.filteredProducts = this.products;
+      this.loading = false; // Datos cargados, cambia el estado
+    })
+    .catch((error: any) => {
+      console.error('Error fetching products:', error);
+      this.loading = false; // Cargar siempre el estado de "loading" en caso de error también
+    });
+}
+
   enableEditPrice(product: any): void {
     product.editingPrice = true;
+    product.originalPrice = product.rental_price;  // Guarda el precio original
   }
 
   onSearch(event: Event): void {
@@ -50,7 +55,6 @@ export class ProductsComponent implements OnInit {
       product.ISBN.toLowerCase().includes(searchTerm)
     );
   }
-  
 
   savePrice(product: any): void {
     const isbn = product.ISBN;
@@ -60,6 +64,7 @@ export class ProductsComponent implements OnInit {
       next: (response) => {
         console.log('Precio actualizado en el backend:', response);
         product.editingPrice = false; // Salir del modo edición
+        product.rental_price = response.data.rental_price;  // Actualiza el precio localmente
       },
       error: (err) => {
         console.error('Error al actualizar el precio:', err);
@@ -67,10 +72,11 @@ export class ProductsComponent implements OnInit {
       }
     });
   }
+  
 
   cancelEditPrice(product: any): void {
-    product.editingPrice = false; // Cancela la edición
-    // Opcional: Podrías restaurar el precio original si es necesario
+    product.editingPrice = false;
+    product.rental_price = product.originalPrice; // Restaurar el precio original
   }
 
   goBack(): void {

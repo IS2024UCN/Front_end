@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { ResponseAPIChangePassword, ResponseAPILogin, ResponseAPIWorkerRegister, User } from '../interfaces/ResponseAPI';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { catchError, firstValueFrom } from 'rxjs';
 import { ResponseAPIRegister } from '../interfaces/ResponseAPI';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,8 +16,9 @@ export class AuthServiceService {
   public errors: string[] = [];
   private userLogged: User | null = null;
   private localStorageService: LocalStorageService = new LocalStorageService();
+  authService: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,) {}
 
   async login(form: any): Promise<ResponseAPILogin> {
     try {
@@ -52,6 +53,29 @@ export class AuthServiceService {
     }
   } 
 
+
+
+
+  // Método para actualizar el estado de un trabajador
+  toggleWorkerStatus(id: number): Observable<any> {
+    return this.http.put(`${this.baseUrl}/toggleWorkerStatus`, { id });
+  }
+
+  // Método para actualizar la información de un trabajador
+  // En tu método updateWorker
+updateWorker(rut: string, newName: string, newPhone: string, newEmail: string): Observable<any> {
+  const headers = new HttpHeaders().set('Authorization', `Bearer ${this.authService.getToken()}`);
+  
+  return this.http.put(`${this.baseUrl}/updateWorker`, {
+    rut: rut,
+    new_name: newName,
+    new_phone: newPhone,
+    new_email: newEmail
+  }, { headers });
+}
+
+
+
   async productRegister(form: any): Promise<any> {
     try {
       const options = this.crearAuthHeaders();
@@ -72,9 +96,17 @@ export class AuthServiceService {
   }
 
   updateProductPrice(isbn: string, newPrice: number): Observable<any> {
-    const url = `${this.baseUrl}/products/${isbn}/update-price`; // Asegúrate que coincida con la ruta del backend
-    return this.http.put(url, { new_price: newPrice });
+    const url = `http://127.0.0.1:8000/api/updateProductPrice`; // Asegúrate de que coincida con la ruta del backend
+    const body = { ISBN: isbn, new_price: newPrice }; // Pasando el ISBN y el nuevo precio
+    return this.http.put(url, body, this.crearAuthHeaders())  // Utiliza 'crearAuthHeaders' para enviar el token de autenticación
+      .pipe(
+        catchError((error) => {
+          console.error('Error al actualizar el precio del producto:', error);
+          throw error;  // Lanza el error para que lo manejes adecuadamente
+        })
+      );
   }
+  
   
   
   

@@ -1,48 +1,77 @@
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { inject } from '@angular/core';
 import { AuthServiceService } from '../../service/auth-service.service';
 import { Router } from '@angular/router';
-
+import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'auth-see-workers-form',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
+  imports: [CommonModule, HttpClientModule, FormsModule],
   templateUrl: './see-workers-form.component.html',
-  styleUrl: './see-workers-form.component.css',
+  styleUrls: ['./see-workers-form.component.css'],
   providers: [AuthServiceService]
 })
-  export class SeeWorkersFormComponent implements OnInit {
+export class SeeWorkersFormComponent implements OnInit {
+  workers: any[] = []; // Lista de trabajadores
+  filteredWorkers: any[] = []; // Lista filtrada que se muestra
 
-    authService = inject(AuthServiceService);
-    workers: any[] = [];
-    filteredUsers: any[] = [];
+  constructor(private authService: AuthServiceService, private router: Router) {}
 
-  
-    constructor(private router:Router) {}  
-  
-    ngOnInit(): void {
-      this.authService.getWorkers().then((data: any) => {
-          console.log('Data: ', data);
-          this.workers = data.data;
-          this.filteredUsers = this.workers;
-        })
-        .catch((error: any) => {
-          console.error('Error fetching workers:', error);
-        });
-    }
+  ngOnInit(): void {
+    // Obtener los trabajadores desde el backend
+    this.authService.getWorkers().then((data: any) => {
+      this.workers = data.data;
+      this.filteredWorkers = this.workers;
+    }).catch((error: any) => {
+      console.error('Error al obtener trabajadores:', error);
+    });
+  }
 
-    onSearch(event: Event): void {
-      const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
-      this.filteredUsers = this.workers.filter(user =>
-        user.name.toLowerCase().includes(searchTerm) || 
-        user.rut.toLowerCase().includes(searchTerm)
-      );
-    }
+  onSearch(event: Event): void {
+    const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
+    this.filteredWorkers = this.workers.filter(worker =>
+      worker.name.toLowerCase().includes(searchTerm) ||
+      worker.rut.toLowerCase().includes(searchTerm) ||
+      worker.email.toLowerCase().includes(searchTerm) ||
+      worker.phone.toLowerCase().includes(searchTerm) ||
+      (worker.active ? 'activo' : 'inactivo').includes(searchTerm) // Para filtrar por 'active'
+    );
+  }
 
-    goBack(): void {
-      this.router.navigate(['/administrador/dashboard']);
+  toggleEditActive(worker: any): void {
+    // Alternar la edición del estado "active"
+    worker.editingActive = !worker.editingActive;
+  }
+
+  enableEditWorker(worker: any): void {
+    worker.editing = true;
+    worker.originalValues = { ...worker }; // Guardar los valores originales del trabajador
+  }
+
+  cancelEdit(worker: any): void {
+    worker.editing = false;
+    worker.name = worker.originalValues.name; // Restaurar valores originales
+    worker.email = worker.originalValues.email;
+    worker.phone = worker.originalValues.phone;
+    worker.active = worker.originalValues.active;
+  }
+
+  confirmChanges(worker: any): void {
+    this.authService.updateWorker(worker.rut, worker.name, worker.phone, worker.email).subscribe({
+      next: (response) => {
+        console.log('Cambios confirmados y actualizados para: ', worker);
+        worker.editing = false; // Finalizar la edición
+      },
+      error: (err) => {
+        console.error('Error al confirmar cambios:', err);
+        alert('Hubo un error al confirmar los cambios. Inténtalo nuevamente.');
+      }
+    });
+  }
+
+  goBack(): void {
+    this.router.navigate(['/administrador/dashboard']);
   }
 }
