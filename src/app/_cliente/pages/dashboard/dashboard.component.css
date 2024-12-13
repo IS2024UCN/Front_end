@@ -109,6 +109,18 @@ html, body {
     align-items: center;
 }
 
+.product-item {
+    display: flex;
+    align-items: center;
+}
+  
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 1rem;
+}
+
 /* Book Grid */
 .book-grid {
     display: grid;
