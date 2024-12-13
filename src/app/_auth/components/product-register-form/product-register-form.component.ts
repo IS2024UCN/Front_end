@@ -33,10 +33,10 @@ export class ProductRegisterFormComponent {
       title: ['', [Validators.required]],
       creator: ['', [Validators.required]],
       rental_price: ['', [Validators.required, Validators.min(0.01)]],
-      publisher: ['', [Validators.required]],
+      publisher: ['', [Validators.required, Validators.minLength(11)]], // Validar más de 10 caracteres
       release_date: ['', [Validators.required]],
       type: ['', [Validators.required, this.typeValidator]],
-      ISBN: ['', [Validators.required, Validators.minLength(10)]],
+      ISBN: ['', [Validators.required, Validators.minLength(10)]], // Validar 10 caracteres mínimo
       initial_stock: ['', [Validators.required, Validators.min(1)]],
     });
   }
@@ -57,29 +57,22 @@ export class ProductRegisterFormComponent {
       });
       return;
     }
-  
+
     this.loginAlert = true;
-  
+
     try {
       const response = await this.authService.productRegister(this.form.value);
-  
-      // Verificar si la respuesta indica éxito
+
       if (!response.error) {
         this.good = true;
         this.message.push(response.message || 'Producto registrado correctamente');
-  
-        // Limpiar el formulario después del registro exitoso
         this.form.reset();
-  
-        // Mostrar el mensaje durante 3 segundos antes de la redirección
         setTimeout(() => {
           this.good = false;
           this.message = [];
-          // Redirigir a la ruta de dashboard para trabajadores
-          this.router.navigate(['/trabajador/dashboard']); 
-        }, 3000); // Esperar 3 segundos para mostrar el mensaje
+          this.router.navigate(['/trabajador/dashboard']);
+        }, 3000);
       } else {
-        //mensaje para identificar cual es el error
         console.error('Error en el registro del producto: ', response);
         this.error = true;
         this.errorMessage.push(response.message || 'Error en el registro');
@@ -96,8 +89,8 @@ export class ProductRegisterFormComponent {
       this.loginAlert = false;
     }
   }
-  
 
+  // Getters para mostrar mensajes de validación
   get titleValidate() {
     return this.form.get('title')?.invalid && this.form.get('title')?.touched;
   }
@@ -119,11 +112,19 @@ export class ProductRegisterFormComponent {
   }
 
   get ISBNValidate() {
-    return this.form.get('ISBN')?.invalid && this.form.get('ISBN')?.touched;
+    return (
+      this.form.get('ISBN')?.invalid &&
+      this.form.get('ISBN')?.touched &&
+      this.form.get('ISBN')?.errors?.['minlength']
+    );
   }
 
   get publisherValidate() {
-    return this.form.get('publisher')?.invalid && this.form.get('publisher')?.touched;
+    return (
+      this.form.get('publisher')?.invalid &&
+      this.form.get('publisher')?.touched &&
+      this.form.get('publisher')?.errors?.['minlength']
+    );
   }
 
   get initialStockValidate() {
