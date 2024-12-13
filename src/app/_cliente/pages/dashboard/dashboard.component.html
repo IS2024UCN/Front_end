@@ -15,10 +15,11 @@
         <div class="menu-items" *ngIf="menuOpen">
           <button (click)="selectProduct('pelicula')" class="menu-item">Película</button>
           <button (click)="selectProduct('libro')" class="menu-item">Libro</button>
+          <button (click)="selectProduct('todos')" class="menu-item">Todos</button>
         </div>
       </div>   
       <div class="search-input-container">
-        <input type="text" placeholder="Buscador" class="search-input">
+        <input type="text" placeholder="Buscador" class="search-input" (input)="onSearch($event)">
         <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
@@ -36,6 +37,16 @@
             <button (click)="goToPasswordChange()" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar Contraseña</button>
           </li>
         </ul>
+      </div>
+    </div>
+    <div class="product-list" *ngFor="let product of filteredProducts">
+      <div class="product-item bg-white border dark:bg-gray-800 dark:border-gray-700 p-4 m-2 rounded-lg flex items-center">
+        <img *ngIf="getImageUrl(product.title)" [src]="getImageUrl(product.title)" alt="{{ product.title }}" class="product-image w-35 h-35 object-cover mr-4">
+        <div>
+          <div class="product-title text-xl font-bold mb-2">Titulo: {{ product.title }}</div>
+          <div class="product-rental-price text-lg mb-2">Precio de Renta: {{ product.rental_price }}</div>
+          <div class="product-type text-md">Tipo: {{ product.type }}</div>
+        </div>
       </div>
     </div>
   </div>
