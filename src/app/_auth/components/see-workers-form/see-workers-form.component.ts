@@ -62,7 +62,8 @@ export class SeeWorkersFormComponent implements OnInit {
 
   confirmChanges(worker: any): void {
     const { rut, name, phone, email, active } = worker;
-    const string_active = active === 1 ? 'activo' : 'inactivo';
+    const string_active = active 
+    console.log('Confirmar cambios:', rut, name, phone, email, string_active);
     this.authService.updateWorker(rut, name, phone, email, string_active).subscribe(
       (response) => {
         console.log('Cambios confirmados:', response);

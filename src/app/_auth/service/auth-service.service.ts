@@ -63,7 +63,7 @@ export class AuthServiceService {
 
   // Método para actualizar la información de un trabajador
   // En tu método updateWorker
-  updateWorker(rut: string, new_name: string, new_phone: string, new_email: string, string_active: string): Observable<any> {
+  updateWorker(rut: string, new_name: string, new_phone: string, new_email: string, string_active: boolean): Observable<any> {
     const headers = this.crearAuthHeaders();
     const body = { rut, new_name, new_phone, new_email, string_active };
     return this.http.put(`${this.baseUrl}/updateWorker`, body, headers);
