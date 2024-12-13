@@ -33,11 +33,12 @@ export class ProductRegisterFormComponent {
       title: ['', [Validators.required]],
       creator: ['', [Validators.required]],
       rental_price: ['', [Validators.required, Validators.min(0.01)]],
-      publisher: ['', [Validators.required, Validators.minLength(11)]], // Validar más de 10 caracteres
+      publisher: ['', [Validators.required, Validators.minLength(10)]], // Validar más de 10 caracteres
       release_date: ['', [Validators.required]],
       type: ['', [Validators.required, this.typeValidator]],
       ISBN: ['', [Validators.required, Validators.minLength(10)]], // Validar 10 caracteres mínimo
       initial_stock: ['', [Validators.required, Validators.min(1)]],
+      
     });
   }
 
