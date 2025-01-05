@@ -69,12 +69,6 @@ export class AuthServiceService {
     return this.http.put(`${this.baseUrl}/updateWorker`, body, headers);
   }
 
-  updateClient(rut: string, new_name: string, new_phone: string, new_email: string, string_active: boolean): Observable<any> {
-    const headers = this.crearAuthHeaders();
-    const body = { rut, new_name, new_phone, new_email, string_active };
-    return this.http.put(`${this.baseUrl}/updateClient`, body, headers);
-  }
-
 
 
 
@@ -213,18 +207,17 @@ export class AuthServiceService {
     }
   }
 
-  async getProducts(): Promise<any> {
+  async getProducts(limit: number = 5, page: number = 1): Promise<any> {
     try {
-      const data = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/getProducts`, this.crearAuthHeaders()));
-      return data; // Eliminado Promise.resolve innecesario
+      const data = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/getProducts?limit=${limit}&page=${page}`, this.crearAuthHeaders()));
+      return data;
     } catch (error) {
       console.error('Error: ', error);
       const e = error as HttpErrorResponse;
-      throw e.message || 'Server error'; // Usando throw en lugar de Promise.reject
+      throw e.message || 'Server error';
     }
   }
 
-  //OBTENER TRABAJADORES
   async getWorkers(): Promise<any> {
     try {
       const data = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/getWorkers`, this.crearAuthHeaders()));
@@ -236,20 +229,7 @@ export class AuthServiceService {
     }
   }
 
-  //OBTENER CLIENTES
-  async getClients(): Promise<any> {
-    try {
-      const data = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/getClients`, this.crearAuthHeaders()));
-      return data; // Eliminado Promise.resolve innecesario
-    } catch (error) {
-      console.error('Error: ', error);
-      const e = error as HttpErrorResponse;
-      throw e.message || 'Server error'; // Usando throw en lugar de Promise.reject
-    }
-  }
-  
-  
-  
+
   crearAuthHeaders() {
     const token = localStorage.getItem('Token');
     console.log('Token: ', token);

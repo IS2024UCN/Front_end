@@ -26,6 +26,10 @@ export class DashboardComponent {
   filteredProducts: any[] = []; // Lista filtrada que se muestra en la tabla
   cartOpen = false;
   selectedProduct: string | null = null;
+  paginatedProducts: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalPages: number = 1;
 
   constructor(private productService: AuthServiceService, private router: Router) {} 
 
@@ -33,13 +37,19 @@ export class DashboardComponent {
   rightMenuOpen = false;
 
   ngOnInit(): void {
-    this.productService.getProducts().then((data: any) => {
-      this.products = data.data.map((product: { title: string; }) => ({
+    this.loadProducts();
+  }
+  
+  loadProducts(): void {
+    this.productService.getProducts(this.itemsPerPage, this.currentPage).then(data => {
+      this.products = data.data.map((product: any) => ({
         ...product,
         imageUrl: this.getImageUrl(product.title)
       }));
       this.filteredProducts = this.products;
-    }).catch((error: any) => {
+      this.totalPages = data.total_pages;
+      this.updatePaginatedProducts();
+    }).catch(error => {
       console.error('Error fetching products:', error);
     });
   }
@@ -63,7 +73,10 @@ export class DashboardComponent {
       product.creator.toLowerCase().includes(searchTerm) ||
       product.ISBN.toLowerCase().includes(searchTerm)
     );
-  }                                    
+    this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+    this.currentPage = 1;
+    this.updatePaginatedProducts();
+  }                                   
 
   selectProduct(product: string): void {
     this.selectedProduct = product;
@@ -73,6 +86,9 @@ export class DashboardComponent {
     } else {
       this.filteredProducts = this.products.filter(p => p.type === product);
     }
+    this.totalPages = Math.ceil(this.filteredProducts.length / this.itemsPerPage);
+    this.currentPage = 1;
+    this.updatePaginatedProducts();
   }
 
   addToCart(product: any): void {
@@ -125,6 +141,34 @@ export class DashboardComponent {
 
   goToPasswordChange(): void {
     this.router.navigate(['/cliente/password-change']);
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  closeRightMenu(): void {
+    this.rightMenuOpen = false;
+  }
+
+  updatePaginatedProducts(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedProducts = this.filteredProducts.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.loadProducts();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.loadProducts();
+    }
   }
 
 }
