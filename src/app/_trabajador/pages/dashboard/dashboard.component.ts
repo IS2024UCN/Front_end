@@ -26,4 +26,8 @@ export class DashboardComponent {
   goToSeeProducts() {
     this.router.navigate(['/trabajador/seeProducts']);
   }
+
+  goToSeeClients() {
+    this.router.navigate(['/trabajador/seeClients']);
+  }
 }
