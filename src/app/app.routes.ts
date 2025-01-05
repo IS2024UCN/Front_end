@@ -83,6 +83,10 @@ export const routes: Routes = [
                 loadComponent: () => import('./_auth/pages/seeClientsPage/see-clients/see-clients.component').then(m => m.SeeClientsComponent),
             },
             {
+                path: 'confirmRents',
+                loadComponent: () => import('./_auth/pages/confirmRentsPage/confirm-rents/confirm-rents.component').then(m => m.ConfirmRentsComponent),
+            },
+            {
                 path: '**',
                 redirectTo: 'dashboard',
             },

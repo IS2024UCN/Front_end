@@ -30,4 +30,8 @@ export class DashboardComponent {
   goToSeeClients() {
     this.router.navigate(['/trabajador/seeClients']);
   }
+
+  goToManageRentals() {
+    this.router.navigate(['/trabajador/confirmRents']);
+  }
 }

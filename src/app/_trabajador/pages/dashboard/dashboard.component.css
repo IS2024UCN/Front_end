@@ -28,6 +28,13 @@ body {
     padding-right: 250px;
     z-index: 2;
 }
+
+.centered-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  
   
 .container {
     display: flex;
