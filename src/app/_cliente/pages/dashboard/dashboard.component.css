@@ -10,7 +10,6 @@ html, body {
     left: 0.001rem;
     top: 50%;
     transform: translateY(-50%);
-    display: flex;
     flex-direction: column;
     z-index: 2;
     display: block;
@@ -104,6 +103,50 @@ html, body {
     transform: translateY(-50%);
     color: #6b7280;
 }
+.cart-container {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    z-index: 1000;
+}
+  
+.cart-button {
+    background-color: #96bbbb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+}
+  
+.cart-items {
+    margin-top: 0.5rem;
+}
+  
+.cart-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #ccc;
+}
+  
+.product-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.rental-days {
+    margin-top: 0.5rem;
+}
+.rental-days-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
 .right-menu {
     position: relative;
@@ -114,6 +157,10 @@ html, body {
 .product-item {
     display: flex;
     align-items: center;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 4px;
 }
   
 .product-image {
@@ -121,6 +168,63 @@ html, body {
     height: 100px;
     object-fit: cover;
     margin-right: 1rem;
+}
+.product-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+  
+.product-rental-price {
+    font-size: 1rem;
+    color: #555;
+}
+  
+.product-type {
+    font-size: 0.875rem;
+    color: #777;
+}
+
+.rent-button {
+    background-color: #96bbbb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin-top: 0.5rem;
+}
+.final-price-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.final-price-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 4px;
+    text-align: center;
+}
+  
+.confirm-button, .cancel-button {
+    background-color: #96bbbb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin-top: 1rem;
+    margin-right: 0.5rem;
+}
+  
+.cancel-button {
+    background-color: #ff6b6b;
 }
 
 /* Book Grid */

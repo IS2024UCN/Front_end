@@ -19,8 +19,12 @@ export class DashboardComponent {
   placeholders = Array(9).fill(null);
   authService = inject(AuthServiceService);
   products: any[] = []; // Lista original de productos
+  cart: any[] = [];
+  rentalDays: number = 1;
+  finalPrice: number = 0;
+  showFinalPrice: boolean = false;
   filteredProducts: any[] = []; // Lista filtrada que se muestra en la tabla
-  
+  cartOpen = false;
   selectedProduct: string | null = null;
 
   constructor(private productService: AuthServiceService, private router: Router) {} 
@@ -47,6 +51,10 @@ export class DashboardComponent {
   toggleRightMenu(): void {
     this.rightMenuOpen = !this.rightMenuOpen;
   }
+
+  toggleCart(): void {
+    this.cartOpen = !this.cartOpen;
+  }
   
   onSearch(event: Event): void {
     const searchTerm = (event.target as HTMLInputElement).value.toLowerCase();
@@ -65,6 +73,42 @@ export class DashboardComponent {
     } else {
       this.filteredProducts = this.products.filter(p => p.type === product);
     }
+  }
+
+  addToCart(product: any): void {
+    this.cart.push(product);
+  }
+  removeFromCart(product: any): void {
+    this.cart = this.cart.filter(item => item !== product);
+  }
+  updateRentalDays(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    this.rentalDays = parseInt(input.value, 10);
+  }
+  calculateFinalPrice(): void {
+    if (this.cart.length > 0) {
+      this.finalPrice = this.cart[0].rental_price * this.rentalDays;
+      this.showFinalPrice = true;
+    }
+  }
+  confirmFinalRental(): void {
+    if (this.cart.length > 0) {
+      const rentalInfo = {
+        product: this.cart[0],
+        days: this.rentalDays,
+        price: this.finalPrice
+      };
+      console.log('Rental confirmed:', rentalInfo);
+      alert(`Producto arrendado por ${this.rentalDays} días. Precio final: $${this.finalPrice}`);
+      this.cart = [];
+      this.rentalDays = 1;
+      this.finalPrice = 0;
+      this.showFinalPrice = false;
+      this.cartOpen = false;
+    }
+  }
+  cancelFinalRental(): void {
+    this.showFinalPrice = false;
   }
 
   getImageUrl(title: string): string {
