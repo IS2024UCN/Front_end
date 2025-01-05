@@ -207,14 +207,14 @@ export class AuthServiceService {
     }
   }
 
-  async getProducts(): Promise<any> {
+  async getProducts(limit: number = 5, page: number = 1): Promise<any> {
     try {
-      const data = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/getProducts`, this.crearAuthHeaders()));
-      return data; // Eliminado Promise.resolve innecesario
+      const data = await firstValueFrom(this.http.get<any>(`${this.baseUrl}/getProducts?limit=${limit}&page=${page}`, this.crearAuthHeaders()));
+      return data;
     } catch (error) {
       console.error('Error: ', error);
       const e = error as HttpErrorResponse;
-      throw e.message || 'Server error'; // Usando throw en lugar de Promise.reject
+      throw e.message || 'Server error';
     }
   }
 
@@ -228,9 +228,8 @@ export class AuthServiceService {
       throw e.message || 'Server error'; // Usando throw en lugar de Promise.reject
     }
   }
-  
-  
-  
+
+
   crearAuthHeaders() {
     const token = localStorage.getItem('Token');
     console.log('Token: ', token);
