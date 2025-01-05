@@ -37,6 +37,20 @@
             <button (click)="goToPasswordChange()" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar Contraseña</button>
           </li>
         </ul>
+        <div class="cart-container" *ngIf="cart.length > 0">
+          <button class="cart-button" (click)="toggleCart()">Carrito ({{ cart.length }})</button>
+          <div class="cart-items" *ngIf="cartOpen">
+            <div *ngFor="let item of cart" class="cart-item">
+              {{ item.title }} - ${{ item.rental_price }}
+              <button class="rent-button" (click)="removeFromCart(item)">Eliminar</button>
+            </div>
+            <div class="rental-days">
+              <label for="rentalDays">Días de arriendo:</label>
+              <input type="number" id="rentalDays" (input)="updateRentalDays($event)" min="1" class="rental-days-input">
+            </div>
+            <button class="rent-button" (click)="calculateFinalPrice()">Arrendar</button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="product-list" *ngFor="let product of filteredProducts">
@@ -44,9 +58,17 @@
         <img *ngIf="product.imageUrl" [src]="product.imageUrl" alt="{{ product.title }}" class="product-image">
         <div>
           <div class="product-title text-xl font-bold mb-2">Titulo: {{ product.title }}</div>
-          <div class="product-rental-price text-lg mb-2">Precio de Renta: {{ product.rental_price }}</div>
+          <div class="product-rental-price text-lg mb-2">Precio de Renta (CLP): ${{ product.rental_price }}</div>
           <div class="product-type text-md">Tipo: {{ product.type }}</div>
+          <button class="rent-button" (click)="addToCart(product)">Rentar</button>
         </div>
+      </div>
+    </div>
+    <div *ngIf="showFinalPrice" class="final-price-modal">
+      <div class="final-price-content">
+        <p>El precio final del arriendo es: ${{ finalPrice }}</p>
+        <button class="confirm-button" (click)="confirmFinalRental()">Confirmar</button>
+        <button class="cancel-button" (click)="cancelFinalRental()">Cancelar</button>
       </div>
     </div>
   </div>

@@ -16,7 +16,7 @@
                     <th scope="col" class="px-6 py-3">ISBN</th>
                     <th scope="col" class="px-6 py-3">Título</th>
                     <th scope="col" class="px-6 py-3">Creador</th>
-                    <th scope="col" class="px-6 py-3">Precio</th>
+                    <th scope="col" class="px-6 py-3">Precio (CLP)</th>
                     <th scope="col" class="px-6 py-3">Editorial/Estudio</th>
                     <th scope="col" class="px-6 py-3">Fecha de Publicación</th>
                     <th scope="col" class="px-6 py-3">Tipo</th>
@@ -33,7 +33,7 @@
                     <td class="px-6 py-4">
                         <!-- Precio editable -->
                         <span *ngIf="!product.editingPrice">
-                            ${{ product.rental_price }}
+                            $CLP {{ product.rental_price }}
                             <button (click)="enableEditPrice(product)" class="text-blue-500 ml-2">Editar</button>
                         </span>
                         <span *ngIf="product.editingPrice">
