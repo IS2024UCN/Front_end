@@ -192,6 +192,26 @@ html, body {
     cursor: pointer;
     color: white;
     margin-top: 0.5rem;
+    margin-left: auto;
+}
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+.pagination-controls button {
+    background-color: #96bbbb;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    margin: 0 0.5rem;
+}
+.pagination-controls span {
+    font-size: 1rem;
+    color: #555;
 }
 .final-price-modal {
     position: fixed;

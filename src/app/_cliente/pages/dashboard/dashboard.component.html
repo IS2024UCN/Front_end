@@ -32,9 +32,11 @@
             <path d="M6 10a2 2 0 110-4 2 2 0 010 4zm4 0a2 2 0 110-4 2 2 0 010 4zm4 0a2 2 0 110-4 2 2 0 010 4z" fill="black"></path>
           </svg>
         </button>
-        <ul *ngIf="rightMenuOpen" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg">
+        <div (click)="closeRightMenu()" class="fixed inset-0 z-10" *ngIf="rightMenuOpen"></div>
+        <ul *ngIf="rightMenuOpen" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-20">
           <li>
             <button (click)="goToPasswordChange()" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Cambiar Contraseña</button>
+            <button (click)="goToLogin()" class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Cerrar Sesión</button>
           </li>
         </ul>
         <div class="cart-container" *ngIf="cart.length > 0">
@@ -60,9 +62,14 @@
           <div class="product-title text-xl font-bold mb-2">Titulo: {{ product.title }}</div>
           <div class="product-rental-price text-lg mb-2">Precio de Renta (CLP): ${{ product.rental_price }}</div>
           <div class="product-type text-md">Tipo: {{ product.type }}</div>
-          <button class="rent-button" (click)="addToCart(product)">Rentar</button>
         </div>
+          <button class="rent-button" (click)="addToCart(product)">Rentar</button>
       </div>
+    </div>
+    <div class="pagination-controls">
+      <button (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+      <span>Página {{ currentPage }} de {{ totalPages }}</span>
+      <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
     </div>
     <div *ngIf="showFinalPrice" class="final-price-modal">
       <div class="final-price-content">

@@ -26,6 +26,10 @@ export class DashboardComponent {
   filteredProducts: any[] = []; // Lista filtrada que se muestra en la tabla
   cartOpen = false;
   selectedProduct: string | null = null;
+  paginatedProducts: any[] = [];
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
+  totalPages: number = 1;
 
   constructor(private productService: AuthServiceService, private router: Router) {} 
 
@@ -125,6 +129,34 @@ export class DashboardComponent {
 
   goToPasswordChange(): void {
     this.router.navigate(['/cliente/password-change']);
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
+
+  closeRightMenu(): void {
+    this.rightMenuOpen = false;
+  }
+
+  updatePaginatedProducts(): void {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    this.paginatedProducts = this.filteredProducts.slice(startIndex, endIndex);
+  }
+
+  nextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedProducts();
+    }
+  }
+
+  previousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedProducts();
+    }
   }
 
 }
