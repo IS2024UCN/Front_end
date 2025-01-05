@@ -94,17 +94,25 @@ export class DashboardComponent {
   confirmFinalRental(): void {
     if (this.cart.length > 0) {
       const rentalInfo = {
-        product: this.cart[0],
+        productId: this.cart[0].id,
         days: this.rentalDays,
-        price: this.finalPrice
+        confirmation: true
       };
-      console.log('Rental confirmed:', rentalInfo);
-      alert(`Producto arrendado por ${this.rentalDays} días. Precio final: $${this.finalPrice}`);
-      this.cart = [];
-      this.rentalDays = 1;
-      this.finalPrice = 0;
-      this.showFinalPrice = false;
-      this.cartOpen = false;
+      this.productService.rentProduct(rentalInfo.productId, rentalInfo.days, rentalInfo.confirmation).subscribe({
+        next: response => {
+          console.log('Rental confirmed:', response);
+          alert(`Producto arrendado por ${this.rentalDays} días. Precio final: $${this.finalPrice}`);
+          this.cart = [];
+          this.rentalDays = 1;
+          this.finalPrice = 0;
+          this.showFinalPrice = false;
+          this.cartOpen = false;
+        },
+        error: error => {
+          console.error('Error during rental:', error);
+          alert('Hubo un error al procesar el arriendo. Por favor, inténtelo de nuevo.');
+        }
+      });
     }
   }
   cancelFinalRental(): void {

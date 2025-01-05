@@ -104,6 +104,18 @@ export class AuthServiceService {
       );
   }
 
+  rentProduct(product_id: any, daysRent: number, confirm: boolean): Observable<any> {
+    const url = `http://127.0.0.1:8000/api/rentProduct`; // Asegúrate de que coincida con la ruta del backend
+    const body = { product_id: product_id, daysRent: daysRent, confirm: confirm }; 
+    return this.http.post(url, body, this.crearAuthHeaders())  // Utiliza 'crearAuthHeaders' para enviar el token de autenticación
+      .pipe(
+        catchError((error) => {
+          console.error('Error al rentar el producto:', error);
+          throw error;  // Lanza el error para que lo manejes adecuadamente
+        })
+      );
+  }
+
   replenishStock(isbn: string, quantity: number): Observable<any> {
     const url = `http://127.0.0.1:8000/api/replenishStock`; // Asegúrate de que coincida con la ruta del backend
     const body = { ISBN: isbn, quantity: quantity }; // Pasando el ISBN y el nuevo stock
