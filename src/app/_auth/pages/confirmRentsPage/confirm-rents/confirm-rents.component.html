@@ -1,1 +1,28 @@
-<p>confirm-rents works!</p>
+<div class="rents-container">
+    <h1>Rentas Pendientes</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título Producto</th>
+          <th>Días</th>
+          <th>Precio (CLP)</th>
+          <th>Estado</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let rent of rents">
+          <td>{{ rent.id }}</td>
+          <td>{{ rent.product_title }}</td>
+          <td>{{ rent.daysRent }}</td>
+          <td>${{ rent.totalCost }}</td>
+          <td>{{ getStatusLabel(rent.state) }}</td>
+          <td>
+            <button *ngIf="rent.state === '0'" (click)="updateRentStatus(rent.id, '1')">Aceptar</button>
+            <button *ngIf="rent.state === '0'" (click)="updateRentStatus(rent.id, '2')" style="color: white; background-color: red;" onmouseover="this.style.backgroundColor='black'" onmouseout="this.style.backgroundColor='red'">Rechazar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

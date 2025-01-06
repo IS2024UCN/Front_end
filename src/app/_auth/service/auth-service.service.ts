@@ -237,7 +237,7 @@ export class AuthServiceService {
     } catch (error) {
       console.error('Error: ', error);
       const e = error as HttpErrorResponse;
-      throw e.message || 'Server error'; // Usando throw en lugar de Promise.reject
+      throw e.message || 'Server error'; 
     }
   }
 
@@ -245,6 +245,23 @@ export class AuthServiceService {
     const headers = this.crearAuthHeaders();
     const body = { rut, new_name, new_phone, new_email, string_active };
     return this.http.put(`${this.baseUrl}/updateClient`, body, headers);
+  }
+
+  async getRents(): Promise<any> {
+    try {
+      const data = await firstValueFrom(this.http.get(`${this.baseUrl}/getRents`, this.crearAuthHeaders()));
+      return data;
+    } catch (error) {
+      console.error('Error: ', error);
+      const e = error as HttpErrorResponse;
+      throw e.message || 'Server error'; 
+    }
+  }
+
+  updateRentStatus(rent_id: number, state: string): Observable<any> {
+    const headers = this.crearAuthHeaders();
+    const body = { rent_id, state };
+    return this.http.put(`${this.baseUrl}/updateRentStatus`, body, headers);
   }
 
 
